@@ -27,9 +27,25 @@
 *.out
 *.app
 
+Win32
 Win64
-Win64
+
 Debug
 .vs
 *.db
 *.opendb
+
+Autosaves
+Backup
+Collections
+Cooked
+Logs
+
+Build
+Binaries
+
+*.png
+*.jpg
+*.bin
+*.log
+
