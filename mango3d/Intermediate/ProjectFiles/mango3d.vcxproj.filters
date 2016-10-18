@@ -1,46 +1,111 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<None Include="..\..\mango3d.uproject" />
-		<Filter Include="Source">
-			<UniqueIdentifier>{31E24170-52CC-456D-B5D6-875232670A15}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\mango3d.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<None Include="..\..\Source\mango3dEditor.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<Filter Include="Config">
-			<UniqueIdentifier>{061AA589-87AB-4701-ACAD-362B837FDBC8}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Config\DefaultEditor.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEngine.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultGame.ini">
-			<Filter>Config</Filter>
-		</None >
-		<Filter Include="Source\mango3d">
-			<UniqueIdentifier>{52295590-A057-48BB-AEDE-C1FD9DF2CFCA}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\mango3d\mango3d.Build.cs">
-			<Filter>Source\mango3d</Filter>
-		</None >
-		<ClCompile Include="..\..\Source\mango3d\mango3d.cpp">
-			<Filter>Source\mango3d</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\mango3d\mango3d.h">
-			<Filter>Source\mango3d</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\mango3d\mango3dGameMode.cpp">
-			<Filter>Source\mango3d</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\mango3d\mango3dGameMode.h">
-			<Filter>Source\mango3d</Filter>
-		</ClInclude >
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\mango3d.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{31E24170-52CC-456D-B5D6-875232670A15}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\mango3d.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\mango3dEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{061AA589-87AB-4701-ACAD-362B837FDBC8}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\mango3d">
+      <UniqueIdentifier>{52295590-A057-48BB-AEDE-C1FD9DF2CFCA}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\mango3d\mango3d.Build.cs">
+      <Filter>Source\mango3d</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\mango3d\mango3d.cpp">
+      <Filter>Source\mango3d</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\mango3d.h">
+      <Filter>Source\mango3d</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\mango3dGameMode.cpp">
+      <Filter>Source\mango3d</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\mango3dGameMode.h">
+      <Filter>Source\mango3d</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\mango3d\Entity">
+      <UniqueIdentifier>{f7d9bd3c-9a97-4be9-bb17-16b6867a26f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\mango3d\Util">
+      <UniqueIdentifier>{a0a3159b-0943-449d-ac85-2b611354006b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\mango3d\Entity\BaseData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\DesignData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\WallData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\OpeningData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\CornerData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\LineData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\PointData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\BaseGeometryData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\DesignData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\WallData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\OpeningData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\CornerData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\LineData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\PointData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\BaseGeometryData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Util\JsonUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
