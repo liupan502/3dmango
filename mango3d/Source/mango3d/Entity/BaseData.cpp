@@ -5,6 +5,7 @@
 
 BaseData::BaseData()
 {
+  name_ = "";
 }
 
 BaseData::~BaseData()

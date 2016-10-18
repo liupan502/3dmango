@@ -8,11 +8,16 @@
 
 
 CornerData::CornerData() :BaseGeometryData() {
-
+  has_position_data_ = false;
+  generated_point_ = NULL;
 }
 
 CornerData::~CornerData() {
-  ;
+  std::map<FString, PointData*>::iterator it;
+  for (it = point_data_map_.begin(); it != point_data_map_.end(); it++) {
+    delete it->second;
+    it->second = NULL;
+  }
 }
 
 void CornerData::InitWithJsonObject(FJsonObject& jsonObject) {
@@ -49,4 +54,17 @@ void CornerData::InitWithJsonObject(FJsonObject& jsonObject) {
   }
 
 
+}
+
+void CornerData::UpdateInitData(std::map<FString, WallData*>& wallDataMap) {
+  for (std::map<FString, WallData*>::iterator it = related_wall_map_.begin(); it != related_wall_map_.end(); it++) {
+    WallData* wall_data = it->second;
+    if (wallDataMap.find(wall_data->name()) != wallDataMap.end()) {
+      if (wallDataMap[wall_data->name()] != wall_data) {
+        it->second = wallDataMap[wall_data->name()];
+        delete wall_data;
+        wall_data = NULL;
+      }
+    }
+  }
 }

@@ -12,6 +12,8 @@ public:
   RoomData();
   virtual ~RoomData();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
+  void UpdateInitData(std::map<FString,WallData*>& wallDataMap);
+
 
 protected:
   FString func_name_;

@@ -3,6 +3,7 @@
 #include "WallData.h"
 
 RoomData::RoomData() :BaseData() {
+  func_name_ = "";
 
 }
 
@@ -27,4 +28,19 @@ void RoomData::InitWithJsonObject(FJsonObject& jsonObject) {
       walls_.push_back(wall_data);
     }
   }
+}
+
+void RoomData::UpdateInitData(std::map<FString, WallData*>& wallDataMap) {
+  
+  for (size_t i = 0; i<walls_.size(); i++) {
+    WallData* wall_data = walls_[i];
+    if (wallDataMap.find(wall_data->name()) != wallDataMap.end()) {
+      if (wallDataMap[wall_data->name()] != wall_data) {
+        walls_[i] = wallDataMap[wall_data->name()];
+        delete wall_data;
+        wall_data = NULL;
+      }
+    }
+  }
+
 }

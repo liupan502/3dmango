@@ -3,7 +3,8 @@
 #include "Util/JsonUtil.h"
 
 PointData::PointData() :BaseData() {
-
+  is_generated_ = false;
+  has_point_data_ = false;
 }
 
 PointData::~PointData() {

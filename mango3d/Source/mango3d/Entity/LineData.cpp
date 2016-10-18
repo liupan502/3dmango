@@ -3,7 +3,7 @@
 #include "Util/JsonUtil.h"
 
 LineData::LineData():BaseData() {
-
+  is_independent_ = false;
 }
 
 LineData::~LineData() {

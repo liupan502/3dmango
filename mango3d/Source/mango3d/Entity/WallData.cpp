@@ -5,11 +5,27 @@
 #include "Util/JsonUtil.h"
 
 WallData::WallData() {
-
+  data_type_ = WALL_NO_DATA;
+  status_ = NONE_STAUS_WALL_DATA;
+  line_ = NULL;
+  generated_line_ = NULL;
+  start_corner_ = NULL;
+  end_corner_ = NULL;
 }
 
 WallData::~WallData() {
+  if (line_ != NULL) {
+    delete line_;
+    line_ = NULL;
+  }
 
+  if (generated_line_ != NULL) {
+    delete generated_line_;
+    generated_line_ = NULL;
+  }
+
+  start_corner_ = NULL;
+  end_corner_ = NULL;
 }
 
 void WallData::InitWithJsonObject(FJsonObject& jsonObject) {
@@ -64,6 +80,30 @@ void WallData::InitWithJsonObject(FJsonObject& jsonObject) {
     for (int i = 0; i < opening_name_array.Num(); i++) {
       FString opening_name = opening_name_array[i];
       opening_names_.insert(opening_name);
+    }
+  }
+}
+
+void WallData::UpdateInitData(std::map<FString, CornerData*>& cornerDataMap) {
+  if (start_corner_ != NULL) {
+    FString name = start_corner_->name();
+    if (cornerDataMap.find(name) != cornerDataMap.end()) {
+      CornerData* corner_data = cornerDataMap[name];
+      if (corner_data != start_corner_) {
+        delete start_corner_;
+        start_corner_ = corner_data;
+      }
+    }
+  }
+
+  if (end_corner_ != NULL) {
+    FString name = end_corner_->name();
+    if (cornerDataMap.find(name) != cornerDataMap.end()) {
+      CornerData* corner_data = cornerDataMap[name];
+      if (corner_data != end_corner_) {
+        delete end_corner_;
+        end_corner_ = corner_data;
+      }
     }
   }
 }

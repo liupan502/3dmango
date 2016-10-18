@@ -3,7 +3,9 @@
 #include "Util/JsonUtil.h"
 
 BaseGeometryData::BaseGeometryData() {
-  ;
+  width_ = length_ = height_ = 0.0;
+  rotation_x_ = rotation_y_ = rotation_z_ = 0.0;
+  set_position(FVector());
 }
 
 BaseGeometryData::~BaseGeometryData() {

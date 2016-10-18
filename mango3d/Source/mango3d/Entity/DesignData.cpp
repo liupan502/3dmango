@@ -11,6 +11,23 @@ DesignData::DesignData() :BaseData()
 
 DesignData::~DesignData()
 {
+  std::map<FString, WallData*>::iterator wall_it = wall_data_map_.begin();
+  for (; wall_it != wall_data_map_.end(); wall_it++) {
+    delete wall_it->second;
+    wall_it->second = NULL;
+  }
+
+  std::map<FString, CornerData*>::iterator corner_it = corner_data_map_.begin();
+  for (; corner_it != corner_data_map_.end(); corner_it++) {
+    delete corner_it->second;
+    corner_it->second = NULL;
+  }
+
+  std::map<FString, RoomData*>::iterator room_it = room_data_map_.begin();
+  for (; room_it != room_data_map_.end(); room_it++) {
+    delete room_it->second;
+    room_it->second = NULL;
+  }
 }
 
 void DesignData::InitWithJsonObject(FJsonObject& jsonObject) {
@@ -71,5 +88,24 @@ void DesignData::InitWithJsonObject(FJsonObject& jsonObject) {
       room_data_map_.insert(std::make_pair(room_data->name(), room_data));
 
     }
+  }
+
+  update_init_data();
+}
+
+void DesignData::update_init_data() {
+  std::map<FString, WallData*>::iterator wall_it = wall_data_map_.begin();
+  for (; wall_it != wall_data_map_.end(); wall_it++) {
+    wall_it->second->UpdateInitData(corner_data_map_);
+  }
+
+  std::map<FString, CornerData*>::iterator corner_it = corner_data_map_.begin();
+  for (; corner_it != corner_data_map_.end(); corner_it++) {
+    corner_it->second->UpdateInitData(wall_data_map_);
+  }
+
+  std::map<FString, RoomData*>::iterator room_it = room_data_map_.begin();
+  for (; room_it != room_data_map_.end(); room_it++) {
+    room_it->second->UpdateInitData(wall_data_map_);
   }
 }

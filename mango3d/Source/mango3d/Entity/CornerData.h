@@ -11,6 +11,7 @@ public:
   CornerData();
   ~CornerData();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
+  void UpdateInitData(std::map<FString, WallData*>& wallDataMap);
 
 protected:
   bool has_position_data_;

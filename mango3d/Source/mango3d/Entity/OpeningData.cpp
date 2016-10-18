@@ -2,7 +2,7 @@
 #include "OpeningData.h"
 
 OpeningData::OpeningData():BaseGeometryData(){
-
+  opening_type_ = OPENING_NONE;
 }
 
 OpeningData::~OpeningData() {

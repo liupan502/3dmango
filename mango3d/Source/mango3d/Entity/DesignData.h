@@ -23,6 +23,8 @@ protected:
   std::map<FString, RoomData*> room_data_map_;
 
   std::map<FString, OpeningData*> opening_data_map_;
+
+  void update_init_data();
 };
 
 #endif
