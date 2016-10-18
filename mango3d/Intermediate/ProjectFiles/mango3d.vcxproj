@@ -406,7 +406,9 @@
     <NMakeOutput>..\..\Binaries\HTML5\mango3d-HTML5-Shipping.exe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\mango3d\Entity\RoomData.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Util\JsonUtil.cpp" />
+    <ClInclude Include="..\..\Source\mango3d\Entity\RoomData.h" />
     <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h" />
     <None Include="..\..\mango3d.uproject" />
     <None Include="..\..\Source\mango3d.Target.cs" />

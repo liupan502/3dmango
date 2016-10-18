@@ -1,11 +1,32 @@
 #include "mango3d.h"
 #include "PointData.h"
+#include "Util/JsonUtil.h"
 
 PointData::PointData() :BaseData() {
 
 }
 
 PointData::~PointData() {
+
+}
+
+void PointData::InitWithJsonObject(FJsonObject& jsonObject) {
+  BaseData::InitWithJsonObject(jsonObject);
+  bool is_generated;
+  if (jsonObject.TryGetBoolField("is_generated", is_generated)){
+    set_is_generated(is_generated);
+  }
+
+  bool has_point_data;
+  if (jsonObject.TryGetBoolField("has_point_data", has_point_data)) {
+    set_has_point_data(has_point_data);
+  }
+
+  FString point_str;
+  if (jsonObject.TryGetStringField("point", point_str)) {
+    FVector point = StringToVector2(point_str);
+    set_point(point);
+  }
 
 }
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <set>
 
 //UCLASS()
 class MANGO3D_API BaseData

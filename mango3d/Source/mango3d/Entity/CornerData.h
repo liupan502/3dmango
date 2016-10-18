@@ -6,14 +6,16 @@
 
 class PointData;
 class WallData;
-class MANGO3D_API CornerData :BaseGeometryData {
+class MANGO3D_API CornerData :public BaseGeometryData {
 public:
   CornerData();
   ~CornerData();
+  virtual void InitWithJsonObject(FJsonObject& jsonObject);
 
 protected:
   bool has_position_data_;
-  std::map<std::string, PointData*> point_data_map_;
-  std::map<std::string, WallData*> related_wall_map_;
+  std::map<FString, PointData*> point_data_map_;
+  std::map<FString, WallData*> related_wall_map_;
+  PointData* generated_point_;
 };
 #endif 

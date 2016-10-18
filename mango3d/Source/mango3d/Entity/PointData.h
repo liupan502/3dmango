@@ -5,6 +5,8 @@ class MANGO3D_API PointData :public BaseData {
 public:
   PointData();
   virtual ~PointData();
+  virtual void InitWithJsonObject(FJsonObject& jsonObject);
+  
 
   FVector point();
   void set_point(FVector point);
