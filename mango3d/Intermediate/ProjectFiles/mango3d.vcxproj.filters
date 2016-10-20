@@ -81,6 +81,9 @@
     <ClInclude Include="..\..\Source\mango3d\Entity\RoomData.h">
       <Filter>Source\mango3d\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Util\ShareMemoryUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\Entity\RoomData.cpp">
       <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Util\ShareMemoryUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
