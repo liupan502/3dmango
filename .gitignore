@@ -48,4 +48,6 @@ Binaries
 *.jpg
 *.bin
 *.log
+*.uasset
+
 
