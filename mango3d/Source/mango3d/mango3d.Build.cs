@@ -6,7 +6,14 @@ public class mango3d : ModuleRules
 {
 	public mango3d(TargetInfo Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" ,"Json"});
+		PublicDependencyModuleNames.AddRange(new string[] { "Core",
+            "CoreUObject", "Engine", "InputCore" ,
+            "Json",
+            "RenderCore",
+            "ShaderCore",
+            "RHI",
+            "ProceduralMeshComponent"
+        });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

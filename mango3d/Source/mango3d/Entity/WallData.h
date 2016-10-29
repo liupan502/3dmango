@@ -33,6 +33,18 @@ public:
   virtual ~WallData();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
   void UpdateInitData(std::map<FString, CornerData*>& cornerDataMap);
+  CornerData* start_corner()const;
+  CornerData* end_corner()const;
+
+  FVector StartCornerPosition()const;
+  FVector StartOutsidePosition()const;
+  FVector StartInsidePosition()const;
+  
+  FVector EndCornerPosition()const;
+  FVector EndOutsidePosition()const;
+  FVector EndInsidePosition()const;
+
+
 
   //WALL_DATA_TYPE data_type();
   //WALL_DATA_STATUS status();

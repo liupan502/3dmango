@@ -9,7 +9,7 @@ FVector StringToVector2(FString& str) {
   FString right_str;
   
   
-  tmp_str.Split(tmp_str, &left_str, &right_str);  
+  tmp_str.Split(split_token, &left_str, &right_str);
   float x = FCString::Atof(*left_str);
   float y = FCString::Atof(*right_str);
   float z = 0.0;
@@ -23,11 +23,11 @@ FVector StringToVector3(FString& str) {
   FString left_str;
   FString right_str;
 
-  tmp_str.Split(tmp_str, &left_str, &right_str);
+  tmp_str.Split(split_token, &left_str, &right_str);
   float x = FCString::Atof(*left_str);
   tmp_str = right_str;
 
-  tmp_str.Split(tmp_str, &left_str, &right_str);
+  tmp_str.Split(split_token, &left_str, &right_str);
   float y = FCString::Atof(*left_str);
   float z = FCString::Atof(*right_str);
 

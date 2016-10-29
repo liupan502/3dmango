@@ -68,3 +68,12 @@ void CornerData::UpdateInitData(std::map<FString, WallData*>& wallDataMap) {
     }
   }
 }
+
+FVector CornerData::PointPosition(FString pointName) {
+  FVector position(0.0,0.0,0.0);
+  std::map<FString, PointData*>::iterator it = point_data_map_.find(pointName);
+  if (it != point_data_map_.end()) {
+    position = it->second->point();
+  }
+  return position;
+}

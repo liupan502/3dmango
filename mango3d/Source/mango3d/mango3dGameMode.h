@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/GameMode.h"
+#include "Entity/DesignData.h"
 #include "mango3dGameMode.generated.h"
 
 
@@ -21,9 +22,11 @@ protected:
   FTimerHandle update_design_data_timer_handle_;
 
   void update_design_data();
+
+  void update_world_geometry();
 	
   int design_id_;
 
-  //DesignData design_data_;
+  DesignData design_data_;
 	
 };

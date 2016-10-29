@@ -16,7 +16,7 @@ bool GetNewDesignData(FString& newData, int& currentId) {
     return false;
   }
 
-  if (info->id >= currentId) {
+  if (info->id <= currentId) {
     return false;
   }
 

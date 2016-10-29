@@ -33,6 +33,8 @@ void WallData::InitWithJsonObject(FJsonObject& jsonObject) {
 
   int wall_data_type;
   if (jsonObject.TryGetNumberField("wall_data_type", wall_data_type)) {
+
+
     data_type_ = (WALL_DATA_TYPE)wall_data_type;
   }
 
@@ -106,4 +108,40 @@ void WallData::UpdateInitData(std::map<FString, CornerData*>& cornerDataMap) {
       }
     }
   }
+}
+
+CornerData* WallData::start_corner() const{
+  return start_corner_;
+}
+
+CornerData* WallData::end_corner() const {
+  return end_corner_;
+}
+
+FVector WallData::StartCornerPosition() const {
+  return start_corner_->position();
+}
+FVector WallData::StartOutsidePosition() const {
+  FString start_outside_name = generated_line_->start_point_name();
+  FVector position = start_corner_->PointPosition(start_outside_name);
+  return position;
+}
+FVector WallData::StartInsidePosition()const {
+  FString start_inside_name = line_->start_point_name();
+  FVector position = start_corner_->PointPosition(start_inside_name);
+  return position;
+}
+
+FVector WallData::EndCornerPosition() const {
+  return end_corner_->position();
+}
+FVector WallData::EndOutsidePosition() const {
+  FString end_outside_name = generated_line_->end_point_name();
+  FVector position = end_corner_->PointPosition(end_outside_name);
+  return position;
+}
+FVector WallData::EndInsidePosition() const {
+  FString end_inside_name = line_->end_point_name();
+  FVector position = end_corner_->PointPosition(end_inside_name);
+  return position;
 }

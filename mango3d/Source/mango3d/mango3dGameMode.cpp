@@ -15,13 +15,34 @@ void Amango3dGameMode::BeginPlay() {
 
 void Amango3dGameMode::update_design_data() {
   FString design_data;
-  int design_id;
+  int design_id = design_id_;
   if (GetNewDesignData(design_data, design_id)) {
-
     design_id_ = design_id;
-
-    //design_data_.InitWithJsonObject()
+    TSharedRef<TJsonReader<TCHAR>> reader_ref =  FJsonStringReader::Create(design_data);
+    TSharedPtr<FJsonObject> json_object_ptr;
+    if (FJsonSerializer::Deserialize(reader_ref, json_object_ptr)) {
+      FJsonObject* json_object = json_object_ptr.Get();
+      design_data_.InitWithJsonObject(*json_object);
+      update_world_geometry();
+    }
+    
   }
+}
+
+void Amango3dGameMode::update_world_geometry() {
+  UWorld* world = GetWorld();
+  AActor* new_actor1 = world->SpawnActor(AActor::GetClass());
+  if (world->ContainsActor(new_actor1)) {
+    int a = 0;
+  }
+
+  world->RemoveActor(new_actor1,true);
+  //world->CleanupActors();
+  if (world->ContainsActor(new_actor1)) {
+    int a = 0;
+  }
+  
+  AActor* new_actor2 = world->SpawnActor(AActor::GetClass());
 }
 
 
