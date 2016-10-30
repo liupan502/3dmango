@@ -3,6 +3,7 @@
 #include "mango3d.h"
 #include "Entity/CornerData.h"
 #include "WallMeshComponent.h"
+#include "Util/PolygonUtil.h"
 
 UWallMeshComponent::UWallMeshComponent(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer) {
  
@@ -64,9 +65,22 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* 
   FVector start_top_position = start_position;
   start_top_position.Z = wall_height_;
 
+
+
   FVector start_outside_position = wallData->StartOutsidePosition();
   FVector start_outside_top_position = start_outside_position;
   start_outside_top_position.Z = wall_height_;
+
+  FVector end_outside_position = wallData->EndOutsidePosition();
+  FVector tmp = end_outside_position - start_outside_position;
+  FVector normal(-tmp.X, tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
 
   TArray<FVector> vertices;
   vertices.Add(start_position);
@@ -78,11 +92,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
   data.triangles = triangles;
 
   return data;
@@ -99,6 +113,16 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section2(const WallData* 
   FVector start_inside_top_position = start_inside_position;
   start_inside_top_position.Z = wall_height_;
 
+  FVector end_inside_position = wallData->EndInsidePosition();
+  FVector tmp = end_inside_position - start_inside_position;
+  FVector normal(tmp.X, -tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
   TArray<FVector> vertices;
   vertices.Add(start_inside_position);
   vertices.Add(start_position);
@@ -108,11 +132,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section2(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
   data.triangles = triangles;
 
   return data;
@@ -129,6 +153,16 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section3(const WallData* 
   FVector end_outside_top_position = end_outside_position;
   end_outside_top_position.Z = wall_height_;
 
+  FVector start_outside_position = wallData->StartOutsidePosition();
+  FVector tmp = end_outside_position - start_outside_position;
+  FVector normal(-tmp.X, tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
   TArray<FVector> vertices;
   vertices.Add(end_outside_position);
   vertices.Add(end_position);
@@ -139,11 +173,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section3(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
   data.triangles = triangles;
 
   return data;
@@ -160,6 +194,16 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section4(const WallData* 
   FVector end_inside_top_position = end_inside_position;
   end_inside_top_position.Z = wall_height_;
 
+  FVector start_inside_position = wallData->StartInsidePosition();
+  FVector tmp = end_inside_position - start_inside_position;
+  FVector normal(-tmp.X, tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
   TArray<FVector> vertices;
   vertices.Add(end_position);
   vertices.Add(end_inside_position);
@@ -170,11 +214,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section4(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
   data.triangles = triangles;
 
   return data;
@@ -317,6 +361,16 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   FVector start_inside_top_position = start_inside_position;
   start_inside_top_position.Z = wall_height_;
 
+  //FVector start_outside_position = wallData->StartOutsidePosition();
+  FVector tmp = end_inside_position - start_inside_position;
+  FVector normal(-tmp.X, tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
   TArray<FVector> vertices;
   vertices.Add(end_inside_position);
   vertices.Add(start_inside_position);
@@ -326,12 +380,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
-
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
 
   data.triangles = triangles;
 
@@ -350,6 +403,15 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* 
   FVector start_outside_top_position = start_outside_position;
   start_outside_top_position.Z = wall_height_;
 
+  FVector tmp = end_outside_position - start_outside_position;
+  FVector normal(-tmp.X, tmp.Y, 0);
+  TArray<FVector> normals;
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  normals.Add(normal);
+  data.normals = normals;
+
   TArray<FVector> vertices;
   vertices.Add(start_outside_position);
   vertices.Add(end_outside_position);
@@ -359,12 +421,11 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* 
 
   TArray<int32> triangles;
   triangles.Add(0);
+  triangles.Add(2);
   triangles.Add(1);
-  triangles.Add(2);
-
   triangles.Add(0);
-  triangles.Add(2);
   triangles.Add(3);
+  triangles.Add(2);
 
   data.triangles = triangles;
 
@@ -388,29 +449,41 @@ TArray<ProceduralMeshData> UWallMeshComponent::build_opening_sections(const Wall
 void UWallMeshComponent::InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings) {
   
   ClearAllMeshSections();
+  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/WallDefaultMat.WallDefaultMat'"));
+  //UMaterial* material = UMaterial::GetDefaultMaterial( 0);
+  //material->TwoSided = true;
+  //SetMaterial(4, material);
   
   ProceduralMeshData mesh_data0 =  build_wall_data_section1(wallData);
-  //CreateMeshSectionWithData(0, mesh_data0);
+  CreateMeshSectionWithData(0, mesh_data0);
+  SetMaterial(0, mat);
 
   ProceduralMeshData mesh_data1 = build_wall_data_section2(wallData);
-  //CreateMeshSectionWithData(1, mesh_data1);
+  CreateMeshSectionWithData(1, mesh_data1);
+  SetMaterial(1, mat);
 
   ProceduralMeshData mesh_data2 = build_wall_data_section3(wallData);
-  //CreateMeshSectionWithData(2, mesh_data2);
+  CreateMeshSectionWithData(2, mesh_data2);
+  SetMaterial(2, mat);
 
   ProceduralMeshData mesh_data3 = build_wall_data_section4(wallData);
-  //CreateMeshSectionWithData(3, mesh_data3);
+  CreateMeshSectionWithData(3, mesh_data3);
+  SetMaterial(3, mat);
 
   ProceduralMeshData mesh_data4 = build_wall_data_section5(wallData);
-  CreateMeshSectionWithData(4, mesh_data4);
+  CreateMeshSectionWithData(4, mesh_data4); 
+  SetMaterial(4, mat);
 
   ProceduralMeshData mesh_data5 = build_wall_data_section6(wallData);
-  //CreateMeshSectionWithData(5, mesh_data5);
+  CreateMeshSectionWithData(5, mesh_data5);
+  SetMaterial(5, mat);
 
   ProceduralMeshData mesh_data6 = build_wall_data_section7(wallData, openings);
-  //CreateMeshSectionWithData(6, mesh_data6);
+  CreateMeshSectionWithData(6, mesh_data6);
+  SetMaterial(6, mat);
 
   ProceduralMeshData mesh_data7 = build_wall_data_section8(wallData, openings);
-  //CreateMeshSectionWithData(7, mesh_data7);
+  CreateMeshSectionWithData(7, mesh_data7);
+  SetMaterial(7, mat);
 }
 
