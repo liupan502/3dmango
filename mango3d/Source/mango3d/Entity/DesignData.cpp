@@ -109,3 +109,23 @@ void DesignData::update_init_data() {
     room_it->second->UpdateInitData(wall_data_map_);
   }
 }
+
+TArray<WallData*> DesignData::GetWalls() {
+  TArray<WallData*> walls;
+  std::map<FString, WallData*>::iterator it;
+  for (it = wall_data_map_.begin(); it != wall_data_map_.end(); it++) {
+    walls.Add(it->second);
+  }
+  return walls;
+}
+
+TArray<OpeningData*> DesignData::GetRelatedOpenings(WallData* wall) {
+  TArray<OpeningData*> openings;
+  std::set<FString> opening_names = wall->opening_names();
+  std::set<FString>::iterator it;
+  for (it = opening_names.begin(); it != opening_names.end(); it++) {
+    OpeningData* opening_data = opening_data_map_[*it];
+    openings.Add(opening_data);
+  }
+  return openings;
+}

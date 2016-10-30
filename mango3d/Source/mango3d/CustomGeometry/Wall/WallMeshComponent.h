@@ -16,6 +16,10 @@ struct ProceduralMeshData {
   TArray<FColor> vertex_colors;
   TArray<FProcMeshTangent> tangents;
   bool bool_value;
+
+  ProceduralMeshData() {
+    bool_value = false;
+  }
 };
 
 
@@ -62,5 +66,12 @@ private:
   ProceduralMeshData build_wall_data_section8(const WallData* wallData, TArray<OpeningData*>& openings);
 	
 
+  TArray<ProceduralMeshData> build_opening_sections(const WallData* wallData, TArray<OpeningData*>& openings);
+
+
+  /*
+  face order: 
+  
+  */
   TArray<FVector> split_face(TArray<FVector>& face, TArray<OpeningData*>& openings);
 };

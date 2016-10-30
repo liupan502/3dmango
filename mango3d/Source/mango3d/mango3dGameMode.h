@@ -7,6 +7,8 @@
 #include "mango3dGameMode.generated.h"
 
 
+class AWallActor;
+
 /**
  * 
  */
@@ -28,5 +30,7 @@ protected:
   int design_id_;
 
   DesignData design_data_;
+
+  TArray<AWallActor*> walls_;
 	
 };

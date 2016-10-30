@@ -145,3 +145,8 @@ FVector WallData::EndInsidePosition() const {
   FVector position = end_corner_->PointPosition(end_inside_name);
   return position;
 }
+
+std::set<FString> WallData::opening_names() {
+  return opening_names_;
+}
+

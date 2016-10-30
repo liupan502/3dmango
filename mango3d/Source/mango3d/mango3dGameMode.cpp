@@ -2,6 +2,7 @@
 
 #include "mango3d.h"
 #include "Util/ShareMemoryUtil.h"
+#include "CustomGeometry/Wall/WallActor.h"
 #include "mango3dGameMode.h"
 
 
@@ -31,18 +32,14 @@ void Amango3dGameMode::update_design_data() {
 
 void Amango3dGameMode::update_world_geometry() {
   UWorld* world = GetWorld();
-  AActor* new_actor1 = world->SpawnActor(AActor::GetClass());
-  if (world->ContainsActor(new_actor1)) {
-    int a = 0;
-  }
-
-  world->RemoveActor(new_actor1,true);
-  //world->CleanupActors();
-  if (world->ContainsActor(new_actor1)) {
-    int a = 0;
-  }
-  
-  AActor* new_actor2 = world->SpawnActor(AActor::GetClass());
+  TArray<WallData*> walls = design_data_.GetWalls();
+  for (int i = 0; i < walls.Num(); i++) {
+    WallData* wall = walls[i];    
+    TArray<OpeningData*> openings = design_data_.GetRelatedOpenings(wall);   
+    FVector location(0.0, 0.0, 0.0);
+    AWallActor* wall_actor = world->SpawnActor<AWallActor>( location, FRotator::ZeroRotator);
+    wall_actor->InitWithWallData(wall, openings);
+  } 
 }
 
 

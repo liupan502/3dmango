@@ -14,6 +14,9 @@ public:
   virtual ~DesignData();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
 
+  TArray<WallData*> GetWalls();
+  TArray<OpeningData*> GetRelatedOpenings(WallData* wall);
+
 
 protected:
   std::map<FString, WallData*> wall_data_map_;
