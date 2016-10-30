@@ -49,5 +49,5 @@ Binaries
 *.bin
 *.log
 *.uasset
-
+*.umap
 
