@@ -73,5 +73,5 @@ private:
   face order: 
   
   */
-  TArray<FVector> split_face(TArray<FVector>& face, TArray<OpeningData*>& openings);
+  TArray<FVector2D> split_face(TArray<FVector2D>& face, TArray<FVector2D>& openings);
 };
