@@ -350,15 +350,12 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section6(const WallData* 
   return data;
 }
 
-ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* wallData, TArray<OpeningData*>& openings) {
-  ProceduralMeshData data;
-  FVector start_inside_position = wallData->StartInsidePosition();
-  FVector start_inside_top_position = start_inside_position;
-  start_inside_top_position.Z = wall_height_;    
-  FVector end_inside_position = wallData->EndInsidePosition();
-  FVector end_inside_top_position = end_inside_position;
-  end_inside_top_position.Z = wall_height_;
-  //FVector z_axis(start_inside_position.Y - end_inside_position.Y, end_inside_position.X - start_inside_position.X, 0);
+void UWallMeshComponent::build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& openings, ProceduralMeshData& data) {
+  FVector start_inside_position = vectors[0];
+  FVector end_inside_position = vectors[1];
+  FVector end_inside_top_position = vectors[2];
+  FVector start_inside_top_position = vectors[3];   
+  
   FVector x_axis = end_inside_position - start_inside_position;
   FVector z_axis(0, 0, 1);
   FVector y_axis = FVector::CrossProduct(z_axis, x_axis);
@@ -368,13 +365,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   z_axis.Normalize();
   FVector w_axis = FVector::ZeroVector;
   FMatrix mat(x_axis, y_axis, z_axis, w_axis);
-  FMatrix inverse_mat = mat.Inverse();
-
-  TArray<FVector> vectors;
-  vectors.Add(start_inside_position);
-  vectors.Add(end_inside_position);
-  vectors.Add(end_inside_top_position);
-  vectors.Add(start_inside_top_position);
+  FMatrix inverse_mat = mat.Inverse();  
 
   TArray<FVector2D> vectors1;
   for (int i = 0; i < vectors.Num(); i++) {
@@ -385,7 +376,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   }
 
   TArray<FVector> vectors2;
-  
+
   for (int i = 0; i < openings.Num(); i++) {
     OpeningData* openingData = openings[i];
     float length = openingData->length();
@@ -408,8 +399,55 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   }
 
   TArray<FVector2D> face_points = split_face(vectors1, vectors3);
+  FVector4 tmp = inverse_mat.TransformVector(vectors[0]);
+  TArray<FVector> vertices;
+  for (int i = 0; i < face_points.Num(); i++) {
+    FVector2D vector2d = face_points[i];
+    FVector vector(vector2d.X, tmp.Y, vector2d.Y);
+    FVector4 vector4 = mat.TransformVector(vector);
+    FVector vertex = FVector(vector4.X, vector4.Y, vector4.Z);
+    vertices.Add(vertex);
+  }
+  data.vertices = vertices;
 
-  int a = 0;
+  FVector normal(-tmp.Y, tmp.X, 0);
+  TArray<FVector> normals;
+  for (int i = 0; i < face_points.Num(); i++) {
+    normals.Add(normal);
+  }
+  data.normals = normals;
+
+  TArray<int32> triangles;
+  int face_num = face_points.Num() / 4;
+  for (int i = 0; i < face_num; i++) {
+    triangles.Add(0 + 4 * i);
+    triangles.Add(2 + 4 * i);
+    triangles.Add(1 + 4 * i);
+    triangles.Add(0 + 4 * i);
+    triangles.Add(3 + 4 * i);
+    triangles.Add(2 + 4 * i);
+  }
+  data.triangles = triangles;
+}
+
+ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* wallData, TArray<OpeningData*>& openings) {
+  ProceduralMeshData data;
+
+  FVector start_inside_position = wallData->StartInsidePosition();
+  FVector start_inside_top_position = start_inside_position;
+  start_inside_top_position.Z = wall_height_;    
+  FVector end_inside_position = wallData->EndInsidePosition();
+  FVector end_inside_top_position = end_inside_position;
+  end_inside_top_position.Z = wall_height_;
+
+  TArray<FVector> vectors;
+  vectors.Add(start_inside_position);
+  vectors.Add(end_inside_position);
+  vectors.Add(end_inside_top_position);
+  vectors.Add(start_inside_top_position);
+ 
+  build_wall_vertical_face(vectors, openings, data);
+  
 
 
   /*FVector end_inside_position = wallData->EndInsidePosition();
@@ -454,7 +492,22 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
 ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* wallData, TArray<OpeningData*>& openings) {
   ProceduralMeshData data;
 
+  FVector start_outside_position = wallData->StartOutsidePosition();
+  FVector start_outside_top_position = start_outside_position;
+  start_outside_top_position.Z = wall_height_;
   FVector end_outside_position = wallData->EndOutsidePosition();
+  FVector end_outside_top_position = end_outside_position;
+  end_outside_top_position.Z = wall_height_;
+
+  TArray<FVector> vectors;
+  vectors.Add(start_outside_position);
+  vectors.Add(end_outside_position);
+  vectors.Add(end_outside_top_position);
+  vectors.Add(start_outside_top_position);
+
+  build_wall_vertical_face(vectors, openings, data);
+
+  /*FVector end_outside_position = wallData->EndOutsidePosition();
   FVector end_outside_top_position = end_outside_position;
   end_outside_top_position.Z = wall_height_;
 
@@ -486,7 +539,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* 
   triangles.Add(3);
   triangles.Add(2);
 
-  data.triangles = triangles;
+  data.triangles = triangles;*/
 
   return data;
 }

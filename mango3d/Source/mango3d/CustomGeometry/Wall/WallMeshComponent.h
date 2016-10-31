@@ -69,6 +69,8 @@ private:
   TArray<ProceduralMeshData> build_opening_sections(const WallData* wallData, TArray<OpeningData*>& openings);
 
 
+  void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& openings, ProceduralMeshData& data);
+
   /*
   face order: 
   
