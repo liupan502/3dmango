@@ -351,20 +351,15 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section6(const WallData* 
 }
 
 void UWallMeshComponent::build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& openings, ProceduralMeshData& data) {
-  FVector start_inside_position = vectors[0];
-  FVector end_inside_position = vectors[1];
-  FVector end_inside_top_position = vectors[2];
-  FVector start_inside_top_position = vectors[3];   
+  FVector start_position = vectors[0];
+  FVector end_position = vectors[1];
+  FVector end_top_position = vectors[2];
+  FVector start_top_position = vectors[3];   
   
-  FVector x_axis = end_inside_position - start_inside_position;
-  FVector z_axis(0, 0, 1);
-  FVector y_axis = FVector::CrossProduct(z_axis, x_axis);
-  y_axis = -y_axis;
+  FVector x_axis = end_position - start_position;
   x_axis.Normalize();
-  y_axis.Normalize();
-  z_axis.Normalize();
-  FVector w_axis = FVector::ZeroVector;
-  FMatrix mat(x_axis, y_axis, z_axis, w_axis);
+  
+  FMatrix mat = compute_wall_matrix(start_position, end_position);
   FMatrix inverse_mat = mat.Inverse();  
 
   TArray<FVector2D> vectors1;
@@ -381,13 +376,13 @@ void UWallMeshComponent::build_wall_vertical_face(TArray<FVector> vectors, TArra
     OpeningData* openingData = openings[i];
     float length = openingData->length();
     float half_length = length / 2.0;
-    FVector opening_vertex1 = openingData->position() + half_length*x_axis;
+    FVector opening_vertex1 = openingData->position() + half_length*x_axis + FVector(0, 0, openingData->position().Z);
     vectors2.Add(opening_vertex1);
-    FVector opening_vertex2 = openingData->position() - half_length*x_axis;
+    FVector opening_vertex2 = openingData->position() - half_length*x_axis + FVector(0, 0, openingData->position().Z);
     vectors2.Add(opening_vertex2);
-    FVector opening_vertex3 = opening_vertex2 + FVector(0, 0, wall_height_);
+    FVector opening_vertex3 = opening_vertex2 + FVector(0, 0, openingData->height());
     vectors2.Add(opening_vertex3);
-    FVector opening_vertex4 = opening_vertex1 + FVector(0, 0, wall_height_);
+    FVector opening_vertex4 = opening_vertex1 + FVector(0, 0, openingData->height());
     vectors2.Add(opening_vertex4);
   }
   TArray<FVector2D> vectors3;
@@ -446,45 +441,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   vectors.Add(end_inside_top_position);
   vectors.Add(start_inside_top_position);
  
-  build_wall_vertical_face(vectors, openings, data);
-  
-
-
-  /*FVector end_inside_position = wallData->EndInsidePosition();
-  FVector end_inside_top_position = end_inside_position;
-  end_inside_top_position.Z = wall_height_;
-
-  FVector start_inside_position = wallData->StartInsidePosition();
-  FVector start_inside_top_position = start_inside_position;
-  start_inside_top_position.Z = wall_height_;
-
-  //FVector start_outside_position = wallData->StartOutsidePosition();
-  FVector tmp = end_inside_position - start_inside_position;
-  FVector normal(-tmp.Y, tmp.X, 0);
-  TArray<FVector> normals;
-  normals.Add(normal);
-  normals.Add(normal);
-  normals.Add(normal);
-  normals.Add(normal);
-  data.normals = normals;
-
-  TArray<FVector> vertices;
-  vertices.Add(end_inside_position);
-  vertices.Add(start_inside_position);
-  vertices.Add(start_inside_top_position);
-  vertices.Add(end_inside_top_position);
-  data.vertices = vertices;
-
-  TArray<int32> triangles;
-  triangles.Add(0);
-  triangles.Add(2);
-  triangles.Add(1);
-  triangles.Add(0);
-  triangles.Add(3);
-  triangles.Add(2);
-
-  data.triangles = triangles;*/
-  
+  build_wall_vertical_face(vectors, openings, data); 
 
   return data;
 }
@@ -505,41 +462,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* 
   vectors.Add(end_outside_top_position);
   vectors.Add(start_outside_top_position);
 
-  build_wall_vertical_face(vectors, openings, data);
-
-  /*FVector end_outside_position = wallData->EndOutsidePosition();
-  FVector end_outside_top_position = end_outside_position;
-  end_outside_top_position.Z = wall_height_;
-
-  FVector start_outside_position = wallData->StartOutsidePosition();
-  FVector start_outside_top_position = start_outside_position;
-  start_outside_top_position.Z = wall_height_;
-
-  FVector tmp = end_outside_position - start_outside_position;
-  FVector normal(-tmp.Y, tmp.X, 0);
-  TArray<FVector> normals;
-  normals.Add(normal);
-  normals.Add(normal);
-  normals.Add(normal);
-  normals.Add(normal);
-  data.normals = normals;
-
-  TArray<FVector> vertices;
-  vertices.Add(start_outside_position);
-  vertices.Add(end_outside_position);
-  vertices.Add(end_outside_top_position);
-  vertices.Add(start_outside_top_position);
-  data.vertices = vertices;
-
-  TArray<int32> triangles;
-  triangles.Add(0);
-  triangles.Add(2);
-  triangles.Add(1);
-  triangles.Add(0);
-  triangles.Add(3);
-  triangles.Add(2);
-
-  data.triangles = triangles;*/
+  build_wall_vertical_face(vectors, openings, data); 
 
   return data;
 }
@@ -643,11 +566,47 @@ TArray<FVector2D> UWallMeshComponent::split_face(TArray<FVector2D>& face, TArray
   return face_points;
 }
 
+void UWallMeshComponent::build_opening_section(const WallData* wallData, OpeningData* openingData, ProceduralMeshData& data) {
+  FVector start_inside_position = wallData->StartInsidePosition();
+  FVector end_inside_position = wallData->EndInsidePosition();
+  FMatrix mat = compute_wall_matrix(start_inside_position, end_inside_position);
+  FMatrix inverse_mat = mat.Inverse();
+  TArray<FVector> insdie_opening_vertices = compute_opening_vertex(start_inside_position, 
+    end_inside_position, openingData, inverse_mat);
+
+
+  FVector start_outside_position = wallData->StartOutsidePosition();
+  FVector end_outside_position = wallData->EndOutsidePosition();
+  TArray<FVector> outsdie_opening_vertices = compute_opening_vertex(start_outside_position,
+    end_outside_position, openingData, inverse_mat);
+  TArray<FVector> vertices = insdie_opening_vertices;
+  vertices.Append(outsdie_opening_vertices);
+  data.vertices = vertices;
+
+  TArray<int32> triangles; 
+
+  for (int i = 0; i < 4; i++) {
+
+    triangles.Add(i);
+    triangles.Add(i + 4);
+    triangles.Add((i+1)%4);
+    triangles.Add((i + 1) % 4);
+    triangles.Add(i + 4);
+    triangles.Add((i + 1) % 4+4);
+  }
+  
+  data.triangles = triangles;
+
+}
+
 TArray<ProceduralMeshData> UWallMeshComponent::build_opening_sections(const WallData* wallData, TArray<OpeningData*>& openings) {
   TArray<ProceduralMeshData> mesh_datas;
-
-
-
+  for (int i = 0; i < openings.Num(); i++) {
+    ProceduralMeshData data;
+    build_opening_section(wallData, openings[i], data);
+    mesh_datas.Add(data);
+  }
+ 
 
   return mesh_datas;
 }
@@ -691,5 +650,54 @@ void UWallMeshComponent::InitWithWallData(const WallData* wallData, TArray<Openi
   ProceduralMeshData mesh_data7 = build_wall_data_section8(wallData, openings);
   CreateMeshSectionWithData(7, mesh_data7);
   SetMaterial(7, mat);
+
+  TArray<ProceduralMeshData> opening_mesh_datas = build_opening_sections(wallData, openings);
+  for (int i = 0; i < opening_mesh_datas.Num(); i++) {
+    CreateMeshSectionWithData(i + 8, opening_mesh_datas[i]);
+    SetMaterial(i + 8, mat);
+  }
 }
 
+FMatrix UWallMeshComponent::compute_wall_matrix(FVector start_position, FVector end_position) {
+  FVector x_axis = end_position - start_position;
+  FVector z_axis(0, 0, 1);
+  FVector y_axis = FVector::CrossProduct(z_axis, x_axis);
+  y_axis = -y_axis;
+  x_axis.Normalize();
+  y_axis.Normalize();
+  z_axis.Normalize();
+  FVector w_axis = FVector::ZeroVector;
+  FMatrix mat(x_axis, y_axis, z_axis, w_axis);
+  return mat;
+}
+
+TArray<FVector> UWallMeshComponent::compute_opening_vertex(FVector start_position, FVector end_position, OpeningData* openingData,const FMatrix& mat) {
+  
+  FVector x_axis = end_position - start_position;
+  x_axis.Normalize();
+  float length = openingData->length();
+  float half_length = length / 2.0;
+
+  TArray<FVector> vectors2;
+  FVector opening_vertex1 = openingData->position() + half_length*x_axis + FVector(0, 0, openingData->position().Z);
+  vectors2.Add(opening_vertex1);
+  FVector opening_vertex2 = openingData->position() - half_length*x_axis + FVector(0, 0, openingData->position().Z);
+  vectors2.Add(opening_vertex2);
+  FVector opening_vertex3 = opening_vertex2 + FVector(0, 0, openingData->height());
+  vectors2.Add(opening_vertex3);
+  FVector opening_vertex4 = opening_vertex1 + FVector(0, 0, openingData->height());
+  vectors2.Add(opening_vertex4);
+
+  FVector4 tmp = mat.TransformVector(start_position);
+  TArray<FVector> vectors3;
+  for (int i = 0; i < vectors2.Num(); i++) {
+    FVector vector = vectors2[i];
+    FVector4 tmp_vector4 = mat.TransformVector(vector);
+    FVector tmp_vector(tmp_vector4.X, tmp.Y, tmp_vector4.Z);
+    FMatrix inverse_mat = mat.Inverse();
+    FVector4 vector4 = inverse_mat.TransformVector(tmp_vector);
+    FVector vertex(vector4.X, vector4.Y, vector4.Z);
+    vectors3.Add(vertex);
+  }
+  return vectors3;
+}

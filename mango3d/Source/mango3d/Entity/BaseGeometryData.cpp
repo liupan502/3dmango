@@ -82,7 +82,7 @@ void BaseGeometryData::InitWithJsonObject(FJsonObject& jsonObject) {
 
   double height_value;
   if (jsonObject.TryGetNumberField("height", height_value)) {
-    set_width(height_value);
+    set_height(height_value);
   }
 
   double rotation_x_value;
