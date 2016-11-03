@@ -14,7 +14,7 @@ void CreateMeshSectionWithData(UProceduralMeshComponent* umc, int sectionIndex, 
 TArray<FVector2D> BuildRoomMesh(const RoomData* roomData) {
   std::vector<CornerData*> corners = roomData->GetCorners();
   TArray<FVector2D> corner_vertices;
-  for (int i = 0; i < corners.size(); i++) {
+  for (size_t i = 0; i < corners.size(); i++) {
     FVector tmp = corners[i]->position();
     FVector2D corner_vertex(tmp.X, tmp.Y);
     corner_vertices.Add(corner_vertex);

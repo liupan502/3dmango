@@ -122,7 +122,7 @@ TArray<WallData*> DesignData::GetWalls() {
 TArray<RoomData*> DesignData::GetRooms() {
   TArray<RoomData*> rooms;
   std::map<FString, RoomData*>::iterator it;
-  for (it != room_data_map_.begin(); it != room_data_map_.end(); it++) {
+  for (it = room_data_map_.begin(); it != room_data_map_.end(); it++) {
     rooms.Add(it->second);
   }
   return rooms;

@@ -29,8 +29,13 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
   TArray<FVector> vertices;
   TArray<int> triangles;
   for (int i = 0; i < vertices_2d.Num(); i++) {
-    vertices.Add(FVector(vertices_2d[i].X, vertices_2d[i].Y, 280));
+    vertices.Add(FVector(vertices_2d[i].X, vertices_2d[i].Y, 0));
     triangles.Add(i);
+  }
+  for (int i = 0; i < triangles.Num() / 3; i++) {
+    int tmp = triangles[3 * i + 1];
+    triangles[3 * i + 1] = triangles[3 * i + 2];
+    triangles[3 * i + 2] = tmp;
   }
   data.vertices = vertices;
   data.triangles = triangles;

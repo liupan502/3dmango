@@ -115,14 +115,51 @@ TArray<FVector2D> Triangulation(TArray<FVector2D> polygon) {
     right_vertex_list[i] = right_vertex_list[right_vertex_list.Num() - (i + 1)];
     right_vertex_list[right_vertex_list.Num() - (i + 1)] = tmp;
   }
-
-  for (int i = 0; i < vertex_indices.Num(); i++) {
-    int vertex_index = vertex_indices[i];
-    if (!left_vertex_list.Find(vertex_index) && !right_vertex_list.Find(vertex_index)) {
-      vertex_indices.RemoveAt(i);
-      i--;
+  vertex_indices.Empty();
+  vertex_indices.Add(top_vertex_index);
+  int left_index = 1, right_index = 1;
+  int list_flag = 0;
+  while (true) {
+    FVector2D left_vertex = polygon[left_vertex_list[left_index]];
+    FVector2D right_vertex = polygon[right_vertex_list[right_index]];
+    if (left_vertex.Y > right_vertex.Y) {
+      vertex_indices.Add(left_vertex_list[left_index]);
+      list_flag = 1;
     }
+    else if (left_vertex.Y < right_vertex.Y) {
+      vertex_indices.Add(right_vertex_list[right_index]);
+      list_flag = -1;
+    }
+    else {
+      if (list_flag >= 0) {
+        vertex_indices.Add(left_vertex_list[left_index]);
+      }
+      else {
+        vertex_indices.Add(right_vertex_list[right_index]);
+      }
+    }
+    if (list_flag >= 1) {
+      left_index++;
+    }
+    else {
+      right_index++;
+    }
+    
+    if (left_index >= left_vertex_list.Num()-1) {
+      for (int i = right_index; i < right_vertex_list.Num() - 1; i++) {
+        vertex_indices.Add(right_vertex_list[i]);
+      }
+      break;
+    }
+    else if(right_index >= right_vertex_list.Num() - 1){
+      for (int i = left_index; i < left_vertex_list.Num() - 1; i++) {
+        vertex_indices.Add(left_vertex_list[i]);
+      }
+      break;
+    }
+
   }
+  vertex_indices.Add(bottom_vertex_index);
 
   if (vertex_indices.Num() < 3) {
     return result;
@@ -174,12 +211,15 @@ TArray<FVector2D> Triangulation(TArray<FVector2D> polygon) {
         
       }
       current_buffer_list.Add(vertex_index);
+      flag = tmp_flag;
     }
     else {
 
       while (true) {
-        FVector2D pre_vertex = polygon[current_buffer_list.Num() - 1];
-        FVector2D pre_pre_vertex = polygon[current_buffer_list.Num() - 2];
+        int pre_index = current_buffer_list[current_buffer_list.Num() - 1];
+        int pre_pre_index = current_buffer_list[current_buffer_list.Num() - 2];
+        FVector2D pre_vertex = polygon[pre_index];
+        FVector2D pre_pre_vertex = polygon[pre_pre_index];
         bool is_convex;
         if (flag) {
           is_convex = IsConvexVertex(pre_pre_vertex, pre_vertex, vertex);
@@ -195,8 +235,8 @@ TArray<FVector2D> Triangulation(TArray<FVector2D> polygon) {
           }
           else {
             result.Add(vertex);
-            result.Add(pre_pre_vertex);
             result.Add(pre_vertex);
+            result.Add(pre_pre_vertex);
           }
           current_buffer_list.RemoveAt(current_buffer_list.Num() - 1);
           if (current_buffer_list.Num() < 2) {
@@ -221,14 +261,14 @@ TArray<FVector2D> clean_vertex_list(TArray<int>& vertex_index_list, const TArray
   
   TArray<FVector2D> result;
   int vertex_index_num = vertex_index_list.Num();
-  if (vertex_index_num) {
+  if (vertex_index_num == 0) {
     return result;
   }
   for (int i = 1; i < vertex_index_list.Num() - 1; i++) {
     FVector2D pre_vertex = vertex_array[vertex_index_list[i - 1]];
     FVector2D vertex = vertex_array[vertex_index_list[i]];
     FVector2D next_vertex = vertex_array[vertex_index_list[i + 1]];
-    if (vertex.Y >= pre_vertex.Y && vertex.Y >= next_vertex.Y) {
+    if (vertex.Y >= pre_vertex.Y && vertex.Y >= next_vertex.Y && IsConvexVertex(pre_vertex,vertex, next_vertex)) {
       result.Add(pre_vertex);
       result.Add(vertex);
       result.Add(next_vertex);

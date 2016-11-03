@@ -3,6 +3,8 @@
 #include "mango3d.h"
 #include "Util/ShareMemoryUtil.h"
 #include "CustomGeometry/Wall/WallActor.h"
+#include "CustomGeometry/Floor/FloorActor.h"
+#include "CustomGeometry/Roof/RoofActor.h"
 #include "mango3dGameMode.h"
 
 
@@ -40,6 +42,16 @@ void Amango3dGameMode::update_world_geometry() {
     AWallActor* wall_actor = world->SpawnActor<AWallActor>( location, FRotator::ZeroRotator);
     wall_actor->InitWithWallData(wall, openings);
   } 
+
+  TArray<RoomData*> rooms = design_data_.GetRooms();
+  for (int i = 0; i < rooms.Num(); i++) {
+    RoomData* room = rooms[i];
+    FVector location(0.0, 0.0, 0.0);
+    ARoofActor* roof_actor = world->SpawnActor<ARoofActor>(location, FRotator::ZeroRotator);
+    roof_actor->InitWithRoomData(room);
+    AFloorActor* floor_actor = world->SpawnActor<AFloorActor>(location, FRotator::ZeroRotator);
+    floor_actor->InitWithRoomData(room);
+  }
 }
 
 
