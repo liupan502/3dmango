@@ -150,3 +150,29 @@ std::set<FString> WallData::opening_names() {
   return opening_names_;
 }
 
+
+bool WallData::IsStartCorner(const CornerData* corner)const {
+  return (start_corner_ == corner);
+}
+
+bool WallData::IsEndCorner(const CornerData* corner) const{
+  return (end_corner_ == corner);
+}
+
+bool WallData::DoCotainCorner(const CornerData* corner)const {
+  return IsStartCorner(corner) || IsEndCorner(corner);
+}
+CornerData* WallData::GetConnectedCorner(const WallData* otherWall) {
+  CornerData* result = NULL;
+  if (otherWall == NULL) {
+    return result;
+  }
+  if (otherWall->DoCotainCorner(start_corner_)) {
+    result = start_corner_;
+  }
+  else if (otherWall->DoCotainCorner(end_corner_)) {
+    result = end_corner_;
+  }
+  return result;
+}
+

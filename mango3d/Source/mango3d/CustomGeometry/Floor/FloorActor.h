@@ -3,8 +3,10 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "FloorMeshComponent.h"
 #include "FloorActor.generated.h"
 
+class RoomData;
 UCLASS()
 class MANGO3D_API AFloorActor : public AActor
 {
@@ -20,6 +22,10 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+  void InitWithRoomData(const RoomData* roomData);
+
+
+private:
+  UFloorMeshComponent* floor_mesh_component_;
 	
 };

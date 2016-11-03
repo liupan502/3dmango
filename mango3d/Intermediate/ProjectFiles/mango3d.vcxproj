@@ -413,6 +413,7 @@
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Entity\RoomData.cpp" />
+    <ClCompile Include="..\..\Source\mango3d\Util\CustomGeometryUtil.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Util\JsonUtil.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Util\PolygonUtil.cpp" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorActor.h" />
@@ -422,6 +423,7 @@
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.h" />
     <ClInclude Include="..\..\Source\mango3d\Entity\RoomData.h" />
+    <ClInclude Include="..\..\Source\mango3d\Util\CustomGeometryUtil.h" />
     <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h" />
     <ClInclude Include="..\..\Source\mango3d\Util\PolygonUtil.h" />
     <None Include="..\..\mango3d.uproject" />

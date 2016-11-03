@@ -119,6 +119,15 @@ TArray<WallData*> DesignData::GetWalls() {
   return walls;
 }
 
+TArray<RoomData*> DesignData::GetRooms() {
+  TArray<RoomData*> rooms;
+  std::map<FString, RoomData*>::iterator it;
+  for (it != room_data_map_.begin(); it != room_data_map_.end(); it++) {
+    rooms.Add(it->second);
+  }
+  return rooms;
+}
+
 TArray<OpeningData*> DesignData::GetRelatedOpenings(WallData* wall) {
   TArray<OpeningData*> openings;
   std::set<FString> opening_names = wall->opening_names();

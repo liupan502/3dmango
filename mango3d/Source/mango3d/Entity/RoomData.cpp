@@ -44,3 +44,15 @@ void RoomData::UpdateInitData(std::map<FString, WallData*>& wallDataMap) {
   }
 
 }
+
+std::vector<CornerData*> RoomData::GetCorners()const {
+  std::vector<CornerData*> result;
+  for (int i = 0; i < walls_.size(); i++) {
+    int j = (i + 1) % walls_.size();
+    WallData* wall1 = walls_[i];
+    WallData* wall2 = walls_[j];
+    CornerData* corner = wall1->GetConnectedCorner(wall2);
+    result.push_back(corner);
+  }
+  return result;
+}

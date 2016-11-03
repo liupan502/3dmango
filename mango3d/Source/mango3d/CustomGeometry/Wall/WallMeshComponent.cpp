@@ -5,6 +5,7 @@
 #include "WallMeshComponent.h"
 #include "Util/PolygonUtil.h"
 
+
 UWallMeshComponent::UWallMeshComponent(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer) {
  
 }
@@ -53,11 +54,11 @@ void UWallMeshComponent::TestInit() {
   CreateMeshSection(0, vertices, triangles, normals, uv0s, vertex_colors, tangents, false);
 }
 
-void UWallMeshComponent::CreateMeshSectionWithData(int sectionIndex, ProceduralMeshData& data) {
+/*void UWallMeshComponent::CreateMeshSectionWithData(int sectionIndex, ProceduralMeshData& data) {
   CreateMeshSection(sectionIndex, data.vertices, data.triangles,
     data.normals, data.uv0s, data.vertex_colors,
     data.tangents, data.bool_value);
-}
+}*/
 
 ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* wallData) {
   ProceduralMeshData data;
@@ -620,40 +621,40 @@ void UWallMeshComponent::InitWithWallData(const WallData* wallData, TArray<Openi
   //SetMaterial(4, material);
   
   ProceduralMeshData mesh_data0 =  build_wall_data_section1(wallData);
-  CreateMeshSectionWithData(0, mesh_data0);
+  CreateMeshSectionWithData(this,0, mesh_data0);
   SetMaterial(0, mat);
 
   ProceduralMeshData mesh_data1 = build_wall_data_section2(wallData);
-  CreateMeshSectionWithData(1, mesh_data1);
+  CreateMeshSectionWithData(this,1, mesh_data1);
   SetMaterial(1, mat);
 
   ProceduralMeshData mesh_data2 = build_wall_data_section3(wallData);
-  CreateMeshSectionWithData(2, mesh_data2);
+  CreateMeshSectionWithData(this,2, mesh_data2);
   SetMaterial(2, mat);
 
   ProceduralMeshData mesh_data3 = build_wall_data_section4(wallData);
-  CreateMeshSectionWithData(3, mesh_data3);
+  CreateMeshSectionWithData(this,3, mesh_data3);
   SetMaterial(3, mat);
 
   ProceduralMeshData mesh_data4 = build_wall_data_section5(wallData);
-  CreateMeshSectionWithData(4, mesh_data4); 
+  CreateMeshSectionWithData(this,4, mesh_data4); 
   SetMaterial(4, mat);
 
   ProceduralMeshData mesh_data5 = build_wall_data_section6(wallData);
-  CreateMeshSectionWithData(5, mesh_data5);
+  CreateMeshSectionWithData(this,5, mesh_data5);
   SetMaterial(5, mat);
 
   ProceduralMeshData mesh_data6 = build_wall_data_section7(wallData, openings);
-  CreateMeshSectionWithData(6, mesh_data6);
+  CreateMeshSectionWithData(this,6, mesh_data6);
   SetMaterial(6, mat);
 
   ProceduralMeshData mesh_data7 = build_wall_data_section8(wallData, openings);
-  CreateMeshSectionWithData(7, mesh_data7);
+  CreateMeshSectionWithData(this,7, mesh_data7);
   SetMaterial(7, mat);
 
   TArray<ProceduralMeshData> opening_mesh_datas = build_opening_sections(wallData, openings);
   for (int i = 0; i < opening_mesh_datas.Num(); i++) {
-    CreateMeshSectionWithData(i + 8, opening_mesh_datas[i]);
+    CreateMeshSectionWithData(this,i + 8, opening_mesh_datas[i]);
     SetMaterial(i + 8, mat);
   }
 }

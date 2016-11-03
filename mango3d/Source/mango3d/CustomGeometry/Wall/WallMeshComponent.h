@@ -5,10 +5,11 @@
 #include "Entity/WallData.h"
 #include "Entity/OpeningData.h"
 #include "ProceduralMeshComponent.h"
+#include "Util/CustomGeometryUtil.h"
 #include "WallMeshComponent.generated.h"
 
 
-struct ProceduralMeshData {
+/*struct ProceduralMeshData {
   TArray<FVector> vertices;
   TArray<int32> triangles;
   TArray<FVector> normals; 
@@ -21,7 +22,7 @@ struct ProceduralMeshData {
     bool_value = false;
   }
 };
-
+*/
 
 /**
  * 
@@ -39,7 +40,7 @@ private:
 
   const float wall_height_ = 280.0f;
 
-  void CreateMeshSectionWithData(int sectionIndex,ProceduralMeshData& data);
+  //void CreateMeshSectionWithData(int sectionIndex,ProceduralMeshData& data);
 
   // start corner outside face
   ProceduralMeshData build_wall_data_section1(const WallData* wallData);

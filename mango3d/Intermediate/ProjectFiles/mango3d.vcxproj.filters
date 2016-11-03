@@ -114,6 +114,9 @@
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofActor.h">
       <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Util\CustomGeometryUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofActor.cpp">
       <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Util\CustomGeometryUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

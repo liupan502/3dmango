@@ -5,6 +5,9 @@
 #include "GameFramework/Actor.h"
 #include "RoofActor.generated.h"
 
+
+class RoomData;
+class URoofMeshComponent;
 UCLASS()
 class MANGO3D_API ARoofActor : public AActor
 {
@@ -20,6 +23,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+  void InitWithRoomData(const RoomData* roomData);
+
+private:
+  URoofMeshComponent* roof_mesh_component_;
 	
 };

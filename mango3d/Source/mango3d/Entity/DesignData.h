@@ -15,6 +15,7 @@ public:
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
 
   TArray<WallData*> GetWalls();
+  TArray<RoomData*> GetRooms();
   TArray<OpeningData*> GetRelatedOpenings(WallData* wall);
 
 

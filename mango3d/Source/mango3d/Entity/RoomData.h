@@ -13,6 +13,7 @@ public:
   virtual ~RoomData();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
   void UpdateInitData(std::map<FString,WallData*>& wallDataMap);
+  std::vector<CornerData*> GetCorners()const;
 
 
 protected:
