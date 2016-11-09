@@ -117,6 +117,9 @@
     <ClInclude Include="..\..\Source\mango3d\Util\CustomGeometryUtil.h">
       <Filter>Source\mango3d\Util</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\ModelData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\Util\CustomGeometryUtil.cpp">
       <Filter>Source\mango3d\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\ModelData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
