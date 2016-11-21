@@ -14,5 +14,5 @@ typedef struct DesignUpdateInfo {
   }
 } DesignUpdateInfo;
 
-bool GetNewDesignData(FString& newData, int& currentIndex);
+bool MANGO3D_API GetNewDesignData(FString& newData, int& currentIndex);
 #endif

@@ -4,6 +4,8 @@
 
 #include "GameFramework/GameMode.h"
 #include "Entity/DesignData.h"
+//#include "AssetRegistryModule.h"
+//#include "LevelEditorActions.h"
 #include "mango3dGameMode.generated.h"
 
 
@@ -32,5 +34,9 @@ protected:
   DesignData design_data_;
 
   TArray<AWallActor*> walls_;
+
+  bool b_test_;
+
+  bool b_build_mass_;
 	
 };

@@ -7,14 +7,15 @@
 
 
 UWallMeshComponent::UWallMeshComponent(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer) {
- 
+  int a = 0;
+  //TestInit();
 }
 
 UWallMeshComponent::UWallMeshComponent() {
   //int a = 0;
   //ClearAllMeshSections();
-  
-
+  int a = 0;
+  //TestInit();
 }
 
 void UWallMeshComponent::TestInit() {

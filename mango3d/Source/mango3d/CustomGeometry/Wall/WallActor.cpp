@@ -14,11 +14,14 @@ AWallActor::AWallActor()
   //RootComponent = wall_mesh_component_;
   //wall_mesh_component_ = NULL;
   
-  USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
-  RootComponent = SphereComponent;
+  //USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
+  
+  //RootComponent = SphereComponent;
   wall_mesh_component_ = CreateDefaultSubobject<UWallMeshComponent>(TEXT("GeneratedMesh"));
+  wall_mesh_component_->SetMobility(EComponentMobility::Static);
+  RootComponent = wall_mesh_component_;
   //wall_mesh->TestInit();
-  wall_mesh_component_->AttachTo(RootComponent);
+  //wall_mesh_component_->AttachTo(RootComponent);
 }
 
 // Called when the game starts or when spawned

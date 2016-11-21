@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\mango3d.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{31E24170-52CC-456D-B5D6-875232670A15}</UniqueIdentifier>
+      <UniqueIdentifier>{F5738C5D-AE4A-4FAF-BD91-3174A707DC6A}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\mango3d.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{061AA589-87AB-4701-ACAD-362B837FDBC8}</UniqueIdentifier>
+      <UniqueIdentifier>{2EAAF793-A350-4DA5-A5AE-2AF5A10694B4}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -23,8 +23,95 @@
     <None Include="..\..\Config\DefaultGame.ini">
       <Filter>Config</Filter>
     </None>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{F4F1A213-FDA8-4D1E-ADAA-4F30A83094E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Mango3DBasePlugin">
+      <UniqueIdentifier>{A9BB94AD-7449-4C8C-8AC9-1D0D8C86AFAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Mango3DBasePlugin\Source">
+      <UniqueIdentifier>{43CE2281-07AF-42FB-AFF4-3ACA8BF07646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin">
+      <UniqueIdentifier>{C48E3550-A6FB-45E4-9089-7A356691E9A1}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Mango3DBasePlugin.Build.cs">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin</Filter>
+    </None>
+    <Filter Include="Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private">
+      <UniqueIdentifier>{B10F4EA2-1C5F-4F3D-A416-4BAA1774C338}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\Mango3DBasePlugin.cpp">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\Mango3DBasePluginPrivatePCH.h">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Public">
+      <UniqueIdentifier>{65B64F96-C756-4457-9782-5CF68BC23FBB}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Public\Mango3DBasePlugin.h">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Public</Filter>
+    </ClInclude>
+    <None Include="..\..\Plugins\Mango3DBasePlugin\Mango3DBasePlugin.uplugin">
+      <Filter>Plugins\Mango3DBasePlugin</Filter>
+    </None>
+    <Filter Include="Plugins\Mango3DBasePlugin\Resources">
+      <UniqueIdentifier>{DDBAAC37-C9B5-4351-96CE-60B7E0DA14ED}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\Mango3DBasePlugin\Resources\Icon128.png">
+      <Filter>Plugins\Mango3DBasePlugin\Resources</Filter>
+    </None>
+    <Filter Include="Plugins\TestPlugin">
+      <UniqueIdentifier>{4CE01E8A-201F-4703-B83A-11448D16CFC2}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\TestPlugin\TestPlugin.uplugin">
+      <Filter>Plugins\TestPlugin</Filter>
+    </None>
+    <Filter Include="Plugins\TestPlugin\Resources">
+      <UniqueIdentifier>{5B2D9FBC-3701-4330-92BD-8871BA64C8FE}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\TestPlugin\Resources\Icon128.png">
+      <Filter>Plugins\TestPlugin\Resources</Filter>
+    </None>
+    <Filter Include="Plugins\TestPlugin\Source">
+      <UniqueIdentifier>{DF7BB5DD-4F06-4691-81B3-E0CE89EAF57A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\TestPlugin\Source\TestPlugin">
+      <UniqueIdentifier>{1D0353FD-1B11-4781-BF5B-8740BB99FA9C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\TestPlugin\Source\TestPlugin\TestPlugin.Build.cs">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin</Filter>
+    </None>
+    <Filter Include="Plugins\TestPlugin\Source\TestPlugin\Private">
+      <UniqueIdentifier>{ABA9BA6A-6B29-48A1-B279-0E51DBD49B8D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.cpp">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.h">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyObject1.cpp">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPlugin.cpp">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPluginPrivatePCH.h">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\TestPlugin\Source\TestPlugin\Public">
+      <UniqueIdentifier>{A6FF1E4D-BA05-41B1-B248-D44DFA510D5A}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\MyObject1.h">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\TestPlugin.h">
+      <Filter>Plugins\TestPlugin\Source\TestPlugin\Public</Filter>
+    </ClInclude>
     <Filter Include="Source\mango3d">
-      <UniqueIdentifier>{52295590-A057-48BB-AEDE-C1FD9DF2CFCA}</UniqueIdentifier>
+      <UniqueIdentifier>{E193B678-0C5D-45B4-8DB6-322CC6B7ACF3}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\mango3d\mango3d.Build.cs">
       <Filter>Source\mango3d</Filter>
@@ -41,143 +128,162 @@
     <ClInclude Include="..\..\Source\mango3d\mango3dGameMode.h">
       <Filter>Source\mango3d</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source\mango3d\Entity">
-      <UniqueIdentifier>{f7d9bd3c-9a97-4be9-bb17-16b6867a26f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\mango3d\Util">
-      <UniqueIdentifier>{a0a3159b-0943-449d-ac85-2b611354006b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\mango3d\CustomGeometry">
-      <UniqueIdentifier>{c1322158-1a39-470d-b543-70e890da2476}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\mango3d\CustomGeometry\Wall">
-      <UniqueIdentifier>{d6cd11c6-a06d-4579-b3f6-d8f5b641762f}</UniqueIdentifier>
+      <UniqueIdentifier>{ED9CB75E-44FB-420D-965E-A6D38F2891F4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\mango3d\CustomGeometry\Floor">
-      <UniqueIdentifier>{7b2ea462-a068-4088-968a-276a4a740596}</UniqueIdentifier>
+      <UniqueIdentifier>{A253D20B-5AF5-4A21-9438-7BFC6A7D02A6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\mango3d\CustomGeometry\Roof">
-      <UniqueIdentifier>{90944044-ecfd-443c-9a91-1d8bf4f7c15c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\mango3d\Entity\BaseData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\DesignData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\WallData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\OpeningData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\CornerData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\LineData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\PointData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\BaseGeometryData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h">
-      <Filter>Source\mango3d\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\RoomData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.h">
-      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.h">
-      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Util\PolygonUtil.h">
-      <Filter>Source\mango3d\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorMeshComponent.h">
-      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofMeshComponent.h">
-      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorActor.h">
-      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofActor.h">
-      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Util\CustomGeometryUtil.h">
-      <Filter>Source\mango3d\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\mango3d\Entity\ModelData.h">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\DesignData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\WallData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\OpeningData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\CornerData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\LineData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\PointData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\BaseGeometryData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Util\JsonUtil.cpp">
-      <Filter>Source\mango3d\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\RoomData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.cpp">
-      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.cpp">
-      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Util\PolygonUtil.cpp">
-      <Filter>Source\mango3d\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorMeshComponent.cpp">
-      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofMeshComponent.cpp">
-      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorActor.cpp">
       <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorMeshComponent.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Floor\FloorMeshComponent.h">
+      <Filter>Source\mango3d\CustomGeometry\Floor</Filter>
+    </ClInclude>
+    <Filter Include="Source\mango3d\CustomGeometry\Model">
+      <UniqueIdentifier>{53BD10E5-B280-4B63-AC21-F5F6B7F3B068}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Model\ModelActor.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Model</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Model\ModelActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Model</Filter>
+    </ClInclude>
+    <Filter Include="Source\mango3d\CustomGeometry\Roof">
+      <UniqueIdentifier>{BF3AD373-4834-4394-9DEB-F4D3D13633BB}</UniqueIdentifier>
+    </Filter>
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofActor.cpp">
       <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
     </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofMeshComponent.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Roof\RoofMeshComponent.h">
+      <Filter>Source\mango3d\CustomGeometry\Roof</Filter>
+    </ClInclude>
+    <Filter Include="Source\mango3d\CustomGeometry\Wall">
+      <UniqueIdentifier>{95C93CB4-BE14-447E-8FAE-85C7A3C8DC82}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Wall\WallMeshComponent.h">
+      <Filter>Source\mango3d\CustomGeometry\Wall</Filter>
+    </ClInclude>
+    <Filter Include="Source\mango3d\Entity">
+      <UniqueIdentifier>{504B89D1-A350-4F2B-AB2D-E96E4AEF0EA6}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\mango3d\Entity\BaseData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\BaseData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\BaseGeometryData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\BaseGeometryData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\CornerData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\CornerData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\DesignData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\DesignData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\LineData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\LineData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\ModelData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\ModelData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\OpeningData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\OpeningData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\PointData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\PointData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\RoomData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\RoomData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Entity\WallData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Entity\WallData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
+    <Filter Include="Source\mango3d\Util">
+      <UniqueIdentifier>{E5C1D2F6-F9C2-4553-A117-2DF57FE2CB79}</UniqueIdentifier>
+    </Filter>
     <ClCompile Include="..\..\Source\mango3d\Util\CustomGeometryUtil.cpp">
       <Filter>Source\mango3d\Util</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\mango3d\Entity\ModelData.cpp">
-      <Filter>Source\mango3d\Entity</Filter>
+    <ClInclude Include="..\..\Source\mango3d\Util\CustomGeometryUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Util\JsonUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Util\PolygonUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Util\PolygonUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\mango3d\Util\ShareMemoryUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\mango3d\Util\ShareMemoryUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.h">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp">
+      <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
