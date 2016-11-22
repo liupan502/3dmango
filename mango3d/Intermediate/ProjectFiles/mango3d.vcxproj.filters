@@ -62,54 +62,6 @@
     <None Include="..\..\Plugins\Mango3DBasePlugin\Resources\Icon128.png">
       <Filter>Plugins\Mango3DBasePlugin\Resources</Filter>
     </None>
-    <Filter Include="Plugins\TestPlugin">
-      <UniqueIdentifier>{4CE01E8A-201F-4703-B83A-11448D16CFC2}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\TestPlugin\TestPlugin.uplugin">
-      <Filter>Plugins\TestPlugin</Filter>
-    </None>
-    <Filter Include="Plugins\TestPlugin\Resources">
-      <UniqueIdentifier>{5B2D9FBC-3701-4330-92BD-8871BA64C8FE}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\TestPlugin\Resources\Icon128.png">
-      <Filter>Plugins\TestPlugin\Resources</Filter>
-    </None>
-    <Filter Include="Plugins\TestPlugin\Source">
-      <UniqueIdentifier>{DF7BB5DD-4F06-4691-81B3-E0CE89EAF57A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Plugins\TestPlugin\Source\TestPlugin">
-      <UniqueIdentifier>{1D0353FD-1B11-4781-BF5B-8740BB99FA9C}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\TestPlugin\Source\TestPlugin\TestPlugin.Build.cs">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin</Filter>
-    </None>
-    <Filter Include="Plugins\TestPlugin\Source\TestPlugin\Private">
-      <UniqueIdentifier>{ABA9BA6A-6B29-48A1-B279-0E51DBD49B8D}</UniqueIdentifier>
-    </Filter>
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.cpp">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.h">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyObject1.cpp">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPlugin.cpp">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPluginPrivatePCH.h">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Private</Filter>
-    </ClInclude>
-    <Filter Include="Plugins\TestPlugin\Source\TestPlugin\Public">
-      <UniqueIdentifier>{A6FF1E4D-BA05-41B1-B248-D44DFA510D5A}</UniqueIdentifier>
-    </Filter>
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\MyObject1.h">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\TestPlugin.h">
-      <Filter>Plugins\TestPlugin\Source\TestPlugin\Public</Filter>
-    </ClInclude>
     <Filter Include="Source\mango3d">
       <UniqueIdentifier>{E193B678-0C5D-45B4-8DB6-322CC6B7ACF3}</UniqueIdentifier>
     </Filter>

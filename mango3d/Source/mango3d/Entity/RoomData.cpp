@@ -1,6 +1,7 @@
 #include "mango3d.h"
 #include "RoomData.h"
 #include "WallData.h"
+#include "CornerData.h"
 
 RoomData::RoomData() :BaseData() {
   func_name_ = "";
@@ -55,4 +56,19 @@ std::vector<CornerData*> RoomData::GetCorners()const {
     result.push_back(corner);
   }
   return result;
+}
+
+const std::vector<WallData*> RoomData::GetWalls()const  {
+  return walls_;
+}
+
+TArray<FVector2D> RoomData::GetCornerPositions() const {
+  std::vector<CornerData*> corners = GetCorners();
+  TArray<FVector2D> corner_vertices;
+  for (size_t i = 0; i < corners.size(); i++) {
+    FVector tmp = corners[i]->position();
+    FVector2D corner_vertex(tmp.X, tmp.Y);
+    corner_vertices.Add(corner_vertex);
+  }
+  return corner_vertices;
 }

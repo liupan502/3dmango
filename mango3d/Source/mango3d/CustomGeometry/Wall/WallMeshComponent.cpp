@@ -61,6 +61,8 @@ void UWallMeshComponent::TestInit() {
     data.tangents, data.bool_value);
 }*/
 
+
+// 起点外侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* wallData) {
   ProceduralMeshData data;
   FVector start_position = wallData->StartCornerPosition();
@@ -74,7 +76,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* 
   start_outside_top_position.Z = wall_height_;
 
   FVector end_outside_position = wallData->EndOutsidePosition();
-  FVector tmp = end_outside_position - start_outside_position;
+  FVector tmp = start_outside_position - start_position;
   FVector normal(-tmp.Y, tmp.X, 0);
   TArray<FVector> normals;
   normals.Add(normal);
@@ -104,6 +106,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section1(const WallData* 
   return data;
 }
 
+// 起始点内侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section2(const WallData* wallData) {
   ProceduralMeshData data;
 
@@ -116,7 +119,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section2(const WallData* 
   start_inside_top_position.Z = wall_height_;
 
   FVector end_inside_position = wallData->EndInsidePosition();
-  FVector tmp = end_inside_position - start_inside_position;
+  FVector tmp = start_position - start_inside_position;
   FVector normal(-tmp.Y, tmp.X, 0);
   TArray<FVector> normals;
   normals.Add(normal);
@@ -144,6 +147,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section2(const WallData* 
   return data;
 }
 
+// 终止点外侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section3(const WallData* wallData) {
   ProceduralMeshData data;
 
@@ -156,7 +160,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section3(const WallData* 
   end_outside_top_position.Z = wall_height_;
 
   FVector start_outside_position = wallData->StartOutsidePosition();
-  FVector tmp = end_outside_position - start_outside_position;
+  FVector tmp = end_position - end_outside_top_position;
   FVector normal(-tmp.Y, tmp.X, 0);
   TArray<FVector> normals;
   normals.Add(normal);
@@ -185,6 +189,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section3(const WallData* 
   return data;
 }
 
+// 终止点内侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section4(const WallData* wallData) {
   ProceduralMeshData data;
 
@@ -197,7 +202,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section4(const WallData* 
   end_inside_top_position.Z = wall_height_;
 
   FVector start_inside_position = wallData->StartInsidePosition();
-  FVector tmp = end_inside_position - start_inside_position;
+  FVector tmp = end_inside_position - end_position;
   FVector normal(-tmp.Y, tmp.X, 0);
   TArray<FVector> normals;
   normals.Add(normal);
@@ -226,6 +231,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section4(const WallData* 
   return data;
 }
 
+// 顶部面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section5(const WallData* wallData) {
   ProceduralMeshData data;
 
@@ -310,6 +316,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section5(const WallData* 
   return data;
 }
 
+// 底部面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section6(const WallData* wallData) {
   ProceduralMeshData data;
 
@@ -329,6 +336,15 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section6(const WallData* 
   vertices.Add(end_position);
   vertices.Add(end_inside_position);
   data.vertices = vertices;
+
+  TArray<FVector> normals;
+  normals.Add(FVector(0, 0, 1));
+  normals.Add(FVector(0, 0, 1));
+  normals.Add(FVector(0, 0, 1));
+  normals.Add(FVector(0, 0, 1));
+  normals.Add(FVector(0, 0, 1));
+  normals.Add(FVector(0, 0, 1));
+  data.normals = normals;
 
   TArray<int32> triangles;
   triangles.Add(0);
@@ -407,7 +423,8 @@ void UWallMeshComponent::build_wall_vertical_face(TArray<FVector> vectors, TArra
   }
   data.vertices = vertices;
 
-  FVector normal(-tmp.Y, tmp.X, 0);
+  //FVector normal(-tmp.Y, tmp.X, 0);
+  FVector normal(tmp.Y, -tmp.X, 0);
   TArray<FVector> normals;
   for (int i = 0; i < face_points.Num(); i++) {
     normals.Add(normal);
@@ -427,6 +444,7 @@ void UWallMeshComponent::build_wall_vertical_face(TArray<FVector> vectors, TArra
   data.triangles = triangles;
 }
 
+// 内侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* wallData, TArray<OpeningData*>& openings) {
   ProceduralMeshData data;
 
@@ -448,6 +466,7 @@ ProceduralMeshData UWallMeshComponent::build_wall_data_section7(const WallData* 
   return data;
 }
 
+// 外侧面网格构建
 ProceduralMeshData UWallMeshComponent::build_wall_data_section8(const WallData* wallData, TArray<OpeningData*>& openings) {
   ProceduralMeshData data;
 

@@ -25,12 +25,15 @@ void UFloorMeshComponent::InitWithRoomData(const RoomData* roomData) {
 
 ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomData) {
   ProceduralMeshData data;
-  TArray<FVector2D> vertices_2d = BuildRoomMesh(roomData);
-  TArray<FVector> vertices;
+  TArray<FVector2D> vertices_2d = BuildRoomMesh(roomData,75,75);
+  /*TArray<FVector> vertices;
   TArray<int> triangles;
+  FVector normal(0, 0, 1);
+  TArray<FVector> normals;
   for (int i = 0; i < vertices_2d.Num(); i++) {
     vertices.Add(FVector(vertices_2d[i].X, vertices_2d[i].Y, 0));
     triangles.Add(i);
+    normals.Add(normal);
   }
   for (int i = 0; i < triangles.Num() / 3; i++) {
     int tmp = triangles[3 * i + 1];
@@ -39,6 +42,7 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
   }
   data.vertices = vertices;
   data.triangles = triangles;
+  data.normals = normals;*/
 
   return data;
 }

@@ -14,7 +14,8 @@ public:
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
   void UpdateInitData(std::map<FString,WallData*>& wallDataMap);
   std::vector<CornerData*> GetCorners()const;
-
+  const std::vector<WallData*> GetWalls() const ;
+  TArray<FVector2D> GetCornerPositions()const;
 
 protected:
   FString func_name_;

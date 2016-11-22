@@ -28,6 +28,8 @@ public:
 
 
 protected:
+
+  UPROPERTY(EditAnywhere)
   UWallMeshComponent* wall_mesh_component_;
 
    

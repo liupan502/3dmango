@@ -291,3 +291,33 @@ void append_vertex(TArray<FVector2D>& vertices, bool flag, FVector2D v1, FVector
     vertices.Add(v2);
   }
 }
+
+bool IsPointInPolygon(FVector2D point, const TArray<FVector2D> polygon) {
+  
+  if (polygon.Num() < 3) {
+    return false;
+  }
+
+  int left_cross_point_num = 0,right_cross_point_num = 0;
+  for (int i = 0; i < polygon.Num(); i++) {
+    int j = (i + 1) % polygon.Num();
+    FVector2D point1 = polygon[i];
+    FVector2D point2 = polygon[j];
+    if ((point1.Y - point.Y) * (point2.Y - point.Y) < 0) {
+      float x = (point.Y - point1.Y) / (point2.Y - point1.Y)*(point2.X - point1.X) + point1.X;
+      if (x < point.X) {
+        left_cross_point_num++;
+      }
+      else if (x > point.X) {
+        right_cross_point_num++;
+      }
+    }
+  }
+
+  if (left_cross_point_num % 2 == 1 && right_cross_point_num % 2 == 1) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}

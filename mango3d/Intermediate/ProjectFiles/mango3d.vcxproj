@@ -419,17 +419,7 @@
     <ClInclude Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Public\Mango3DBasePlugin.h" />
     <None Include="..\..\Plugins\Mango3DBasePlugin\Mango3DBasePlugin.uplugin" />
     <None Include="..\..\Plugins\Mango3DBasePlugin\Resources\Icon128.png" />
-    <None Include="..\..\Plugins\TestPlugin\TestPlugin.uplugin" />
-    <None Include="..\..\Plugins\TestPlugin\Resources\Icon128.png" />
-    <None Include="..\..\Plugins\TestPlugin\Source\TestPlugin\TestPlugin.Build.cs" />
     <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp" />
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.cpp" />
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyClass.h" />
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\MyObject1.cpp" />
-    <ClCompile Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPlugin.cpp" />
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Private\TestPluginPrivatePCH.h" />
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\MyObject1.h" />
-    <ClInclude Include="..\..\Plugins\TestPlugin\Source\TestPlugin\Public\TestPlugin.h" />
     <None Include="..\..\Source\mango3d\mango3d.Build.cs" />
     <ClCompile Include="..\..\Source\mango3d\mango3d.cpp" />
     <ClInclude Include="..\..\Source\mango3d\mango3d.h" />

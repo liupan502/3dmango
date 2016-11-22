@@ -16,6 +16,12 @@ struct ProceduralMeshData {
   }
 };
 
+
+
 TArray<FVector2D> BuildRoomMesh(const RoomData* roomData);
+
+TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float texLength);
+
+TArray<FVector2D> GetRoomDataCornerPositions(const RoomData* roomData);
 
 void CreateMeshSectionWithData(UProceduralMeshComponent* umc, int sectionIndex, ProceduralMeshData& data);
