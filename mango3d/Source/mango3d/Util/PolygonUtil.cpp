@@ -292,7 +292,7 @@ void append_vertex(TArray<FVector2D>& vertices, bool flag, FVector2D v1, FVector
   }
 }
 
-bool IsPointInPolygon(FVector2D point, const TArray<FVector2D> polygon) {
+bool IsPointInPolygon(const FVector2D point, const TArray<FVector2D>& polygon) {
   
   if (polygon.Num() < 3) {
     return false;
@@ -321,3 +321,221 @@ bool IsPointInPolygon(FVector2D point, const TArray<FVector2D> polygon) {
     return false;
   }
 }
+
+struct CrossPointInfo {
+  FVector2D cross_point;
+  int index1;
+  int index2;
+  CrossPointInfo(FVector2D point, int index1, int index2)
+    :cross_point(point), index1(index1), index2(index2) {
+
+  }
+
+  bool operator == (const CrossPointInfo& info) {
+    if (index1 != info.index1)
+      return false;
+    if (index2 != info.index2)
+      return false;
+    if (cross_point != cross_point)
+      return false;
+  }
+};
+
+TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2) {
+  TArray<FVector2D> intersection_polygon;
+
+  // 计算凸多边形的交点
+  TArray<CrossPointInfo> cross_point_infos;
+  for (int i = 0; i < polygon1.Num(); i++) {
+    FVector2D p00 = polygon1[i];
+    FVector2D p01 = polygon1[(i + 1) % polygon1.Num()];
+    for (int j = 0; j < polygon2.Num(); j++) {
+      FVector2D p10 = polygon2[j];
+      FVector2D p11 = polygon2[(j + 1) % polygon2.Num()];
+      FVector out_vector;
+      if (FMath::SegmentIntersection2D(FVector(p00, 0), FVector(p01, 0),
+        FVector(p10, 0), FVector(p11, 0), out_vector) ) {
+        CrossPointInfo cross_point_info(FVector2D(out_vector.X,out_vector.Y), i, j);
+        bool bfind_same_point = false;
+        for (int k = 0; k < cross_point_infos.Num(); k++) {
+          if (cross_point_infos[k].cross_point == cross_point_info.cross_point) {
+            bfind_same_point = true;
+            break;
+          }
+        }
+        if(!bfind_same_point)
+		      cross_point_infos.Add(cross_point_info);
+      }
+    }
+  }
+
+  // 尝试寻找起点
+  bool bfind_start_point = false;
+  int start_cross_point_info_index;
+  int current_polygon_index = 0;
+  int current_point_index = -1;
+  for (int i = 0; i < cross_point_infos.Num(); i++) {
+	int index1 = cross_point_infos[i].index1;
+	int index2 = cross_point_infos[i].index2;
+	//FVector tmp = cross_point_infos[i].cross_point;
+	FVector2D cross_point = cross_point_infos[i].cross_point;
+	FVector2D p00 = polygon1[index1];
+	FVector2D p01 = polygon1[(index1 + 1) % polygon1.Num()];
+	FVector2D p10 = polygon2[index2];
+	FVector2D p11 = polygon2[(index2 + 1) % polygon2.Num()];
+	// 如果交点是都是两条线段的端点，pass
+	if ((cross_point == p00 || cross_point == p01) &&
+		(cross_point == p10 || cross_point == p11)) {
+		continue;
+	}
+
+	if (cross_point != p00 && cross_point != p01) {
+		bfind_start_point = true;
+    start_cross_point_info_index = i;
+		current_polygon_index = 1;
+		current_point_index = index1;
+		break;
+	}
+
+	if (cross_point != p10 && cross_point != p11) {
+		bfind_start_point = true;
+    start_cross_point_info_index = i;
+		current_polygon_index = 2;
+		current_point_index = index2;
+		break;
+	}
+  }
+
+  if (!bfind_start_point) {
+    bool bInside = false;
+	  for (int i = 0; i < polygon1.Num(); i++) {      
+      if (IsPointInPolygon(polygon1[i], polygon2)) {
+        bInside = true;
+        break;
+      }
+	  }
+    // polygon1 inside polygon2
+    if (bInside) {
+      return polygon1;
+    }
+
+    for (int i = 0; i < polygon2.Num(); i++) {
+      if (IsPointInPolygon(polygon2[i], polygon1)) {
+        bInside = true;
+        break;
+      }
+    }
+
+    // polygon2 inside polygon1
+    if (bInside) {
+      return polygon2;
+    }
+    // 相交为空
+    return intersection_polygon;
+  }
+
+  CrossPointInfo start_cross_point_info = cross_point_infos[start_cross_point_info_index];
+  CrossPointInfo current_cross_point_info = start_cross_point_info;
+
+  while (true) {
+
+    // 记录交点
+    intersection_polygon.Add(current_cross_point_info.cross_point);
+
+    int index1 = current_cross_point_info.index1;
+    int index2 = current_cross_point_info.index2;
+    FVector2D v1 = (polygon1[(index1 + 1) % polygon1.Num()] - polygon1[index1]);
+    v1.Normalize();
+    FVector2D v2 = polygon2[(index2 + 1) % polygon2.Num()] - polygon2[index2];
+    v2.Normalize();
+
+    // flag will not be equal 0
+    int flag = v1.X*v2.Y - v2.X*v1.Y;
+    const TArray<FVector2D>* tmp_polygon;
+    int current_polygon_index = 0;
+    int tmp_index;
+    // choose vertex of polygon2
+    if (flag > 0) {
+      tmp_polygon = &polygon2;
+      tmp_index = index2;
+      current_polygon_index = 2;
+    }
+    // choose vertex of polygon1
+    else {
+      tmp_polygon = &polygon1;
+      tmp_index = index1;
+      current_polygon_index = 1;
+    }
+
+    TArray<CrossPointInfo> tmp_cross_point_infos;
+    for (int i = 0; i < cross_point_infos.Num(); i++) {
+      if (current_polygon_index == 1 ? tmp_index == cross_point_infos[i].index1 :
+        tmp_index == cross_point_infos[i].index2) {
+        tmp_cross_point_infos.Add(cross_point_infos[i]);
+      }
+    }
+    if (tmp_cross_point_infos.Num() == 2) {
+      CrossPointInfo another_cross_point_info = tmp_cross_point_infos[0] == current_cross_point_info ?
+        tmp_cross_point_infos[1] : tmp_cross_point_infos[0];
+      float distance1 = FVector2D::Distance((*tmp_polygon)[tmp_index], current_cross_point_info.cross_point);
+      float distance2 = FVector2D::Distance((*tmp_polygon)[tmp_index], another_cross_point_info.cross_point);
+      
+      // 该边上还有另外一个交点
+      if (distance1 < distance2) {
+        current_cross_point_info = another_cross_point_info;
+        continue;
+      }
+    }
+    tmp_cross_point_infos.Empty();
+    while (true) {
+      tmp_index = (tmp_index+1)% tmp_polygon->Num();
+      
+      intersection_polygon.Add((*tmp_polygon)[tmp_index]);
+      //TArray<CrossPointInfo> tmp_cross_point_infos;
+      
+      for (int i = 0; i < cross_point_infos.Num(); i++) {
+        if (current_polygon_index == 1 ? tmp_index == cross_point_infos[i].index1 :
+          tmp_index == cross_point_infos[i].index2) {
+          tmp_cross_point_infos.Add(cross_point_infos[i]);
+        }
+      }
+      if (tmp_cross_point_infos.Num() == 0)
+        continue;
+      current_cross_point_info = cross_point_infos[0];
+      float distance = FVector2D::Distance((*tmp_polygon)[tmp_index], current_cross_point_info.cross_point);
+      for (int i = 1; i < cross_point_infos.Num(); i++) {
+        float tmp_distance = FVector2D::Distance((*tmp_polygon)[tmp_index], cross_point_infos[i].cross_point);
+        if (tmp_distance < distance) {
+          current_cross_point_info = cross_point_infos[i];
+          distance = tmp_distance;
+        }
+      }
+      break;
+    }
+
+
+    if (current_cross_point_info == start_cross_point_info) {
+      break;
+    }
+    
+  }
+
+
+  return intersection_polygon;
+}
+
+/*TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2) {
+  TArray<FVector2D> intersection_polygon;
+  int num1 = polygon1.Num();
+  int num2 = polygon2.Num();
+  int sum_num = num1 + num2;
+  int index1 = 0, index2 = 0;
+  while (sum_num > 0) {
+    sum_num--;
+    FVector2D p00 = polygon1[index1];
+    FVector2D p01 = polygon1[(index1 + 1) % polygon1.Num()];
+    FVector2D p10 = polygon2[index2];
+    FVector2D p11 = polygon2[(index2 + 1) % polygon2.Num()];
+  }
+  return intersection_polygon;
+}*/

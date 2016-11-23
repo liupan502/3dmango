@@ -8,4 +8,6 @@ bool IsConvexVertex(FVector2D preVertex, FVector2D vertex, FVector2D nextVertex)
 
 TArray<FVector2D> Triangulation(TArray<FVector2D> polygon);
 
-bool IsPointInPolygon(FVector2D point, const TArray<FVector2D> polygon);
+bool IsPointInPolygon(const FVector2D point, const TArray<FVector2D>& polygon);
+
+TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2);
