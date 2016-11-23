@@ -338,6 +338,7 @@ struct CrossPointInfo {
       return false;
     if (cross_point != cross_point)
       return false;
+    return true;
   }
 };
 
@@ -493,6 +494,7 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
       intersection_polygon.Add((*tmp_polygon)[tmp_index]);
       //TArray<CrossPointInfo> tmp_cross_point_infos;
       
+      // 检查该边上是否有交点
       for (int i = 0; i < cross_point_infos.Num(); i++) {
         if (current_polygon_index == 1 ? tmp_index == cross_point_infos[i].index1 :
           tmp_index == cross_point_infos[i].index2) {
@@ -501,6 +503,8 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
       }
       if (tmp_cross_point_infos.Num() == 0)
         continue;
+
+      // 如果有交点，选择距离起点最近的交点作为当前交点
       current_cross_point_info = cross_point_infos[0];
       float distance = FVector2D::Distance((*tmp_polygon)[tmp_index], current_cross_point_info.cross_point);
       for (int i = 1; i < cross_point_infos.Num(); i++) {
@@ -510,6 +514,7 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
           distance = tmp_distance;
         }
       }
+
       break;
     }
 
@@ -524,18 +529,25 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
   return intersection_polygon;
 }
 
-/*TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2) {
-  TArray<FVector2D> intersection_polygon;
-  int num1 = polygon1.Num();
-  int num2 = polygon2.Num();
-  int sum_num = num1 + num2;
-  int index1 = 0, index2 = 0;
-  while (sum_num > 0) {
-    sum_num--;
-    FVector2D p00 = polygon1[index1];
-    FVector2D p01 = polygon1[(index1 + 1) % polygon1.Num()];
-    FVector2D p10 = polygon2[index2];
-    FVector2D p11 = polygon2[(index2 + 1) % polygon2.Num()];
+int IsPolygonInPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2) {
+  int num = 0;
+  for (int i = 0; i < polygon1.Num(); i++) {
+    FVector2D point = polygon1[i];
+    if (IsPointInPolygon(point, polygon2)) {
+      num++;
+    }
   }
-  return intersection_polygon;
-}*/
+
+  // 完全不包含
+  if (num == 0) {
+    return -1;
+  }
+
+  // 不完全包含
+  if (num < polygon1.Num()) {
+    return 0;
+  }
+
+  // 完全包含
+  return 1;
+}

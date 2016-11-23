@@ -49,28 +49,7 @@ TArray<FVector2D> GetRoomDataCornerPositions(const RoomData* roomData) {
   return corner_vertices;
 }
 
-int is_polygon_in_polygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2) {
-  int num = 0;
-  for (int i = 0; i < polygon1.Num(); i++) {
-    FVector2D point = polygon1[i];
-    if (IsPointInPolygon(point, polygon2)) {
-      num++;
-    }
-  }
 
-  // 完全不包含
-  if (num == 0) {
-    return -1;
-  }
-
-  // 不完全包含
-  if (num < polygon1.Num()) {
-    return 0;
-  }
-
-  // 完全包含
-  return 1;
-}
 
 struct Rect {
   FVector2D center;
@@ -122,12 +101,9 @@ bool contain_rect(TArray<Rect>& rects, const Rect& rect)  {
   return false;
 }
 
-TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float texLength) {
-
-
+TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float texLength) {  
   TArray<FVector2D> vertices;
-  TArray<FVector2D> corner_vertices = roomData->GetCornerPositions();
-  //generate_room_mesh(corner_vertices, vertices);
+  TArray<FVector2D> corner_vertices = roomData->GetCornerPositions();  
   FVector2D start_vertex = corner_vertices[0];
   Rect first_rect(start_vertex, texWidth, texLength);
   TArray<Rect> inside_rects;
@@ -142,14 +118,14 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     // 第一次要检查初始的矩形是否需要计算
     if (is_first_time) {
       is_first_time = false;
-      status = is_polygon_in_polygon(rect.points(), corner_vertices);
+      status = IsPolygonInPolygon(rect.points(), corner_vertices);
       if (status != -1) {
         inside_rects.Add(rect);
       }
     }
     
     Rect top_rect(rect.center+FVector2D(0,-texLength),texWidth, texLength);
-    status = is_polygon_in_polygon(top_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(top_rect.points(), corner_vertices);
     if (status != -1) {  
       if (!contain_rect(inside_rects,top_rect)) {
         rects.Add(top_rect);
@@ -158,7 +134,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect left_rect(rect.center + FVector2D(-texWidth, 0), texWidth, texLength);
-    status = is_polygon_in_polygon(left_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(left_rect.points(), corner_vertices);
     if (status != -1 ) {
       if (!contain_rect(inside_rects, left_rect)) {
         rects.Add(left_rect);
@@ -167,7 +143,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect right_rect(rect.center + FVector2D(texWidth, 0), texWidth, texLength);
-    status = is_polygon_in_polygon(right_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(right_rect.points(), corner_vertices);
     if (status != -1) {
       if (!contain_rect(inside_rects, right_rect)) {
         rects.Add(right_rect);
@@ -176,7 +152,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect bottom_rect(rect.center + FVector2D(0, texLength), texWidth, texLength);
-    status = is_polygon_in_polygon(bottom_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(bottom_rect.points(), corner_vertices);
     if (status != -1) {
       if (!contain_rect(inside_rects, bottom_rect)) {
         rects.Add(bottom_rect);
@@ -185,7 +161,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
     
     Rect left_top_rect(rect.center + FVector2D(-texWidth, -texLength), texWidth, texLength);
-    status = is_polygon_in_polygon(left_top_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(left_top_rect.points(), corner_vertices);
     if (status != -1) {
       if (!contain_rect(inside_rects, left_top_rect)) {
         rects.Add(left_top_rect);
@@ -194,7 +170,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect right_top_rect(rect.center + FVector2D(texWidth, -texLength), texWidth, texLength);
-    status = is_polygon_in_polygon(right_top_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(right_top_rect.points(), corner_vertices);
     if (status != -1) {
       if (!contain_rect(inside_rects, right_top_rect)) {
         rects.Add(right_top_rect);
@@ -203,7 +179,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect right_bottom_rect(rect.center + FVector2D(texWidth, texLength), texWidth, texLength);
-    status = is_polygon_in_polygon(right_bottom_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(right_bottom_rect.points(), corner_vertices);
     if (status != -1 ) {
       if (!contain_rect(inside_rects, right_bottom_rect)) {
         rects.Add(right_bottom_rect);
@@ -212,7 +188,7 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
     }
 
     Rect left_bottom_rect(rect.center + FVector2D(-texWidth, texLength), texWidth, texLength);
-    status = is_polygon_in_polygon(left_bottom_rect.points(), corner_vertices);
+    status = IsPolygonInPolygon(left_bottom_rect.points(), corner_vertices);
     if (status != -1 ) {
       if (!contain_rect(inside_rects, left_bottom_rect)) {
         rects.Add(left_bottom_rect);
