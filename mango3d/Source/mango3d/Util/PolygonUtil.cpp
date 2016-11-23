@@ -253,7 +253,25 @@ TArray<FVector2D> Triangulation(TArray<FVector2D> polygon) {
     }
 
   }
+  TArray<FVector2D> tmp = result;
+  result.Empty();
+  for (int i = 0; i < tmp.Num() / 3; i++) {
+    FVector2D v1 = tmp[3 * i] - tmp[3 * i + 1];
+    v1.Normalize();
+    FVector2D v2 = tmp[3 * i + 1] - tmp[3 * i + 2];
+    v2.Normalize();
+    FVector2D v3 = tmp[3 * i + 2] - tmp[3 * i];
+    v3.Normalize();
 
+    float flag1 = v1.X*v2.Y - v1.Y*v2.X;
+    float flag2 = v2.X*v3.Y - v2.Y*v3.X;
+    float flag3 = v3.X*v1.Y - v3.Y*v1.X;
+    if (flag1*flag2*flag3 != 0) {
+      result.Add(tmp[3 * i]);
+      result.Add(tmp[3 * i+1]);
+      result.Add(tmp[3 * i+2]);
+    }
+  }
   return result;
 }
 
@@ -451,7 +469,7 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
     v2.Normalize();
 
     // flag will not be equal 0
-    int flag = v1.X*v2.Y - v2.X*v1.Y;
+    float flag = v1.X*v2.Y - v2.X*v1.Y;
     const TArray<FVector2D>* tmp_polygon;
     int current_polygon_index = 0;
     int tmp_index;
@@ -484,6 +502,9 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
       // 该边上还有另外一个交点
       if (distance1 < distance2) {
         current_cross_point_info = another_cross_point_info;
+        if (current_cross_point_info == start_cross_point_info) {
+          break;
+        }
         continue;
       }
     }
@@ -505,12 +526,12 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
         continue;
 
       // 如果有交点，选择距离起点最近的交点作为当前交点
-      current_cross_point_info = cross_point_infos[0];
+      current_cross_point_info = tmp_cross_point_infos[0];
       float distance = FVector2D::Distance((*tmp_polygon)[tmp_index], current_cross_point_info.cross_point);
-      for (int i = 1; i < cross_point_infos.Num(); i++) {
-        float tmp_distance = FVector2D::Distance((*tmp_polygon)[tmp_index], cross_point_infos[i].cross_point);
+      for (int i = 1; i < tmp_cross_point_infos.Num(); i++) {
+        float tmp_distance = FVector2D::Distance((*tmp_polygon)[tmp_index], tmp_cross_point_infos[i].cross_point);
         if (tmp_distance < distance) {
-          current_cross_point_info = cross_point_infos[i];
+          current_cross_point_info = tmp_cross_point_infos[i];
           distance = tmp_distance;
         }
       }
@@ -525,7 +546,32 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
     
   }
 
-
+  /*for (int i = 0; i < intersection_polygon.Num(); i++) {
+    FVector2D vertex1 = intersection_polygon[i];
+    if (IsPointInPolygon(vertex1, polygon2)) {
+      continue;
+    }
+    bool inLine = false;
+    for (int j = 0; j < polygon2.Num(); j++) {
+      FVector2D vertex2 = polygon2[j];
+      FVector2D vertex3 = polygon2[(j + 1) % polygon2.Num()];
+      if (vertex1 == vertex2 || vertex1 == vertex3) {
+        inLine = true;
+        break;
+      }
+      FVector2D v1 = vertex2 - vertex1;
+      v1.Normalize();
+      FVector2D v2 = vertex1 - vertex3;
+      v2.Normalize();
+      if (v1 == v2) {
+        inLine = true;
+        break;
+      }
+    }
+    if (!inLine) {
+      int a = 0;
+    }
+  }*/
   return intersection_polygon;
 }
 

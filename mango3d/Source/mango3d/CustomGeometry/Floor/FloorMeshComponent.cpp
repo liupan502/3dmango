@@ -27,7 +27,8 @@ void UFloorMeshComponent::InitWithRoomData(const RoomData* roomData) {
 
 ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomData) {
   ProceduralMeshData data;
-  TArray<FVector2D> vertices_rect = BuildRoomMesh(roomData,50,50);
+  float width = 50.0,height = 50.0;
+  TArray<FVector2D> vertices_rect = BuildRoomMesh(roomData,width,height);
   TArray<FVector2D> vertices_tri = BuildRoomMesh(roomData);
 
   TArray<FVector2D> corner_vertices = roomData->GetCornerPositions();
@@ -65,8 +66,37 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
       triangles.Add(1+ vertices_num);
       
     }
-    else if (status == 0) {
 
+    else if (status == 0) {
+      for (int j = 0; j < vertices_tri.Num() / 3; j++) {
+        if (i == 0 && j == 4) {
+          int a = 0;
+        }
+        TArray<FVector2D> triangle;
+        triangle.Add(vertices_tri[j*3]);
+        triangle.Add(vertices_tri[j * 3+1]);
+        triangle.Add(vertices_tri[j * 3+2]);
+        TArray<FVector2D> intersection = GetIntersectionOfConvexPolygon(rect,triangle);
+        if (intersection.Num() >= 3) {
+          TArray<FVector2D> intersection_tri = Triangulation(intersection);
+          for (int k = 0; k < intersection_tri.Num() / 3; k++) {
+            int vertices_num = vertices.Num();
+            vertices.Add(FVector(intersection_tri[3 * k],0));
+            vertices.Add(FVector(intersection_tri[3 * k + 1], 0));
+            vertices.Add(FVector(intersection_tri[3 * k + 2], 0));
+
+            triangles.Add(vertices_num+2);
+            triangles.Add(vertices_num + 1);
+            triangles.Add(vertices_num + 0);
+
+            for (int m = 0; m < 3; m++) {
+              FVector2D offset = intersection_tri[3 * k + m] - rect[0];
+              uv0s.Add(FVector2D(offset.X / width, offset.Y / height));
+            }
+
+          }
+        }
+      }
     }
   }
 
