@@ -26,7 +26,7 @@ ProceduralMeshData URoofMeshComponent::build_mesh_section(const RoomData* roomDa
   ProceduralMeshData data;
   TArray<FVector2D> vertices_2d = BuildRoomMesh(roomData);
   TArray<FVector> vertices;
-  //TArray<FVector> vertices1;
+  
   TArray<int> triangles;
 
   FVector normal(0, 0, -1);

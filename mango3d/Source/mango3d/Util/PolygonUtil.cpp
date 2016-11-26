@@ -544,34 +544,7 @@ TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygo
       break;
     }
     
-  }
-
-  /*for (int i = 0; i < intersection_polygon.Num(); i++) {
-    FVector2D vertex1 = intersection_polygon[i];
-    if (IsPointInPolygon(vertex1, polygon2)) {
-      continue;
-    }
-    bool inLine = false;
-    for (int j = 0; j < polygon2.Num(); j++) {
-      FVector2D vertex2 = polygon2[j];
-      FVector2D vertex3 = polygon2[(j + 1) % polygon2.Num()];
-      if (vertex1 == vertex2 || vertex1 == vertex3) {
-        inLine = true;
-        break;
-      }
-      FVector2D v1 = vertex2 - vertex1;
-      v1.Normalize();
-      FVector2D v2 = vertex1 - vertex3;
-      v2.Normalize();
-      if (v1 == v2) {
-        inLine = true;
-        break;
-      }
-    }
-    if (!inLine) {
-      int a = 0;
-    }
-  }*/
+  }  
   return intersection_polygon;
 }
 
@@ -596,4 +569,29 @@ int IsPolygonInPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D
 
   // ÍêÈ«°üº¬
   return 1;
+}
+
+// left_top,left_bottom,right_bottom,right_top
+TArray<FVector2D> GetBoundingRect(const TArray<FVector2D>& polygon) {
+  TArray<FVector2D> rect;
+  if (polygon.Num() < 3)
+    return rect;
+  float left = polygon[0].X, right = polygon[0].X, top = polygon[0].Y, bottom = polygon[0].Y;
+  for (int i = 1; i < polygon.Num(); i++) {
+    if (polygon[i].X < left)
+      left = polygon[i].X;
+    if (polygon[i].X > right)
+      right = polygon[i].X;
+    if (polygon[i].Y < bottom)
+      bottom = polygon[i].Y;
+    if (polygon[i].Y > top)
+      top = polygon[i].Y;
+  }
+
+  rect.Add(FVector2D(left, top));
+  rect.Add(FVector2D(left, bottom));
+  rect.Add(FVector2D(right, bottom));
+  rect.Add(FVector2D(right, top));
+
+  return rect;
 }

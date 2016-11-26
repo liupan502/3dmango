@@ -205,3 +205,38 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
   }
   return vertices;
 }
+
+int SampleComputeUVTileNum(const TArray<FVector2D>& polygon, float texWidth, float texHeight) {
+  TArray<FVector2D> bounding_rect = GetBoundingRect(polygon);
+  float height = FVector2D::Distance(bounding_rect[0], bounding_rect[1]);
+  float width = FVector2D::Distance(bounding_rect[0], bounding_rect[3]);
+  int u_num = width / texWidth;
+  u_num = (u_num == (width / texWidth)) ? u_num : (u_num + 1);
+  int v_num = height / texHeight;
+  v_num = (v_num == (height / texHeight)) ? v_num : (v_num + 1);
+  int tile_num = u_num > v_num ? u_num : v_num;
+  return tile_num;
+}
+
+TArray<FVector2D> GetUVRect(const TArray<FVector2D>& polygon, float texWidth, float texHeight) {
+  TArray<FVector2D> bounding_rect = GetBoundingRect(polygon);
+  int tile_num = SampleComputeUVTileNum(polygon, texWidth, texHeight);
+  TArray<FVector2D> uv_rect;
+  uv_rect.Add(bounding_rect[0]);
+  uv_rect.Add(bounding_rect[0] + tile_num*FVector2D(0, -texHeight));
+  uv_rect.Add(bounding_rect[0] + tile_num*FVector2D(texWidth, -texHeight));
+  uv_rect.Add(bounding_rect[0] + tile_num*FVector2D(texWidth, 0));
+
+
+  return uv_rect;
+}
+
+FVector2D ComputeUV(const TArray<FVector2D>& uvRect, FVector2D vertex) {
+  FVector2D origin = uvRect[0];
+  float width = FVector2D::Distance(uvRect[0], uvRect[3]);
+  float height = FVector2D::Distance(uvRect[0], uvRect[1]);
+
+  FVector2D offset = vertex - origin;
+  FVector2D uv(abs(offset.X) / width, abs(offset.Y) / height);
+  return uv;
+}

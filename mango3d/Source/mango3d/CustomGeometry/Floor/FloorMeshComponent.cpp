@@ -18,13 +18,46 @@ void UFloorMeshComponent::InitWithRoomData(const RoomData* roomData) {
 
   ClearAllMeshSections();
   UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/diban/Mat/floor03.floor03'"));
-
-
+  UMaterialInstanceDynamic* mat_instance = CreateAndSetMaterialInstanceDynamicFromMaterial(0,mat);
+  TArray<FVector2D> corner_positions = GetRoomDataCornerPositions(roomData);
+  float texWidth = 150, texHeight = 150;
+  int uv_tile_num = SampleComputeUVTileNum(corner_positions, texWidth, texHeight);
+  mat_instance->SetScalarParameterValue("TileScale", uv_tile_num);
   ProceduralMeshData mesh_data0 = build_mesh_section(roomData);
   CreateMeshSectionWithData(this, 0, mesh_data0);
-  SetMaterial(0, mat);
+  //SetMaterial(0, mat);
 }
 
+ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomData) {
+  ProceduralMeshData data;
+  float texWidth = 75, texHeight = 75;
+  TArray<FVector2D> vertices_2d = BuildRoomMesh(roomData);
+  TArray<FVector> vertices;
+
+  TArray<int> triangles;
+
+  FVector normal(0, 0, -1);
+  TArray<FVector> normals;
+  TArray<FVector2D> corner_positions = GetRoomDataCornerPositions(roomData);
+  TArray<FVector2D> uv_rect = GetUVRect(corner_positions, texWidth, texHeight);
+  TArray<FVector2D> uv0s;
+  
+  for (int i = 0; i < vertices_2d.Num(); i++) {
+    FVector2D uv = ComputeUV(uv_rect, vertices_2d[i]);
+    uv0s.Add(uv);
+    vertices.Add(FVector(vertices_2d[i].X, vertices_2d[i].Y, 0));
+    triangles.Add(i);
+    normals.Add(normal);
+  }
+
+  data.vertices = vertices;
+  data.triangles = triangles;
+  data.normals = normals;
+  data.uv0s = uv0s;
+  return data;
+}
+
+/*
 ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomData) {
   ProceduralMeshData data;
   float width = 50.0,height = 50.0;
@@ -125,10 +158,11 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
   }
   data.vertices = vertices;
   data.triangles = triangles;
-  data.normals = normals;*/
+  data.normals = normals;
 
   return data;
 }
+*/
 
 
 

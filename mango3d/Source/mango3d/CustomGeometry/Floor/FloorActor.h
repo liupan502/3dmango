@@ -26,6 +26,9 @@ public:
 
 
 private:
+
+  //UPROPERTY()
+  UPROPERTY(EditAnywhere)
   UFloorMeshComponent* floor_mesh_component_;
 	
 };

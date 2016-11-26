@@ -16,8 +16,6 @@ struct ProceduralMeshData {
   }
 };
 
-
-
 TArray<FVector2D> BuildRoomMesh(const RoomData* roomData);
 
 TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float texLength);
@@ -25,3 +23,9 @@ TArray<FVector2D> BuildRoomMesh(const RoomData* roomData, float texWidth, float 
 TArray<FVector2D> GetRoomDataCornerPositions(const RoomData* roomData);
 
 void CreateMeshSectionWithData(UProceduralMeshComponent* umc, int sectionIndex, ProceduralMeshData& data);
+
+int SampleComputeUVTileNum(const TArray<FVector2D>& polygon, float texWidth, float texHeight);
+
+TArray<FVector2D> GetUVRect(const TArray<FVector2D>& polygon,float texWidth,float texHeight);
+
+FVector2D ComputeUV(const TArray<FVector2D>& uvRect, FVector2D vertex);

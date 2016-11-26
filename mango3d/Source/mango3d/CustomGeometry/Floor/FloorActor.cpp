@@ -11,11 +11,11 @@ AFloorActor::AFloorActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-  USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
-  RootComponent = SphereComponent;
+  //USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
+  //RootComponent = SphereComponent;
   floor_mesh_component_ = CreateDefaultSubobject<UFloorMeshComponent>(TEXT("GeneratedRoofMesh"));
   //wall_mesh->TestInit();
-  floor_mesh_component_->AttachTo(RootComponent);
+  RootComponent = floor_mesh_component_;
 
 }
 
