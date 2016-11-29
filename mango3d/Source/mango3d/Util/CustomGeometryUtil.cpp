@@ -453,7 +453,7 @@ TArray<FVector2D> split_face(TArray<FVector2D>& face, TArray<FVector2D>& opening
 }
 
 TArray<FVector> compute_opening_vertex(FVector start_position, 
-  FVector end_position, OpeningData* openingData, const FMatrix& mat) {
+  FVector end_position,  OpeningData* openingData, const FMatrix& mat) {
 
   FVector x_axis = end_position - start_position;
   x_axis.Normalize();

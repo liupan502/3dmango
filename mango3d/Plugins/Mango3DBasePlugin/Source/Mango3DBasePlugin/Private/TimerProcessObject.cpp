@@ -7,6 +7,7 @@
 #include "CustomGeometry/Room/RoomActor.h"
 #include "CustomGeometry/Roof/RoofActor.h"
 #include "CustomGeometry/Floor/FloorActor.h"
+#include "CustomGeometry/Opening/OpeningActor.h"
 #include "CustomGeometry/OutsideWall/OutsideWallActor.h"
 #include "CustomGeometry/Model/ModelActor.h"
 
@@ -35,9 +36,16 @@ void UTimerProcessObject::update_design_data() {
 
 void UTimerProcessObject::update_world_geometry() {
   UWorld* world = GWorld;
-  TArray<WallData*> walls = design_data_.GetWalls();
-  
   FVector location(0.0, 0.0, 0.0);
+  TArray<WallData*> walls = design_data_.GetWalls();
+  for (int i = 0; i < walls.Num(); i++) {
+    TArray<OpeningData*> openings = design_data_.GetRelatedOpenings(walls[i]);
+    for (int j = 0; j < openings.Num(); j++) {
+      AOpeningActor* opening_actor = world->SpawnActor<AOpeningActor>(location, FRotator::ZeroRotator);
+      opening_actor->InitWithOpeningData(openings[j],walls[i]);
+    }
+  } 
+
   TArray<RoomData*> rooms = design_data_.GetRooms();
   for (int i = 0; i < rooms.Num(); i++) {
     RoomData* room = rooms[i];

@@ -10,6 +10,10 @@ AOpeningActor::AOpeningActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+  opening_mesh_component_ = CreateDefaultSubobject<UOpeningMeshComponent>(TEXT("GeneratedOpeningMesh"));
+  //wall_mesh->TestInit();
+  RootComponent = opening_mesh_component_;
+
 }
 
 // Called when the game starts or when spawned
@@ -24,5 +28,9 @@ void AOpeningActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+}
+
+void AOpeningActor::InitWithOpeningData( OpeningData* openingData,   WallData* wallData) {
+  opening_mesh_component_->InitWithOpeningData(openingData,wallData);
 }
 

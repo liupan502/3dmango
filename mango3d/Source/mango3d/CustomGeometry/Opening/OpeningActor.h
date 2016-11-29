@@ -3,6 +3,9 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "OpeningMeshComponent.h"
+#include "Entity/OpeningData.h"
+#include "Entity/WallData.h"
 #include "OpeningActor.generated.h"
 
 UCLASS()
@@ -20,6 +23,11 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
+  virtual void InitWithOpeningData( OpeningData* openingData, WallData* wallData);
+
+protected:
+  UPROPERTY(EditAnywhere)
+  UOpeningMeshComponent* opening_mesh_component_;
 	
 	
 };
