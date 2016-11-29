@@ -138,3 +138,53 @@ TArray<OpeningData*> DesignData::GetRelatedOpenings(WallData* wall) {
   }
   return openings;
 }
+
+std::map<FString, OpeningData*> DesignData::opening_data_map() {
+  return opening_data_map_;
+}
+
+TArray<WallData*> DesignData::GetOutsideWalls(){
+  TArray<WallData*> tmp_walls;
+  for (std::map<FString, WallData*>::iterator it = wall_data_map_.begin();
+    it != wall_data_map_.end(); it++) {
+    WallData* wall_data = it->second;
+    int ref_room_num = 0;
+    for (std::map<FString, RoomData*>::iterator it = room_data_map_.begin();
+      it != room_data_map_.end(); it++) {
+      if (it->second->DoCotainWall(wall_data))
+        ref_room_num++;
+    }
+    if (ref_room_num == 1) {
+      tmp_walls.Add(wall_data);
+    }
+  }
+
+  // 重亲排列wall ，使墙之间首尾相连
+  TArray<WallData*> outside_walls;
+  WallData* current_wall = NULL;
+  while (true) {
+    bool bfind_next_wall = false;
+    for (int i = 0; i < tmp_walls.Num(); i++) {
+      WallData* tmp_wall = tmp_walls[i];
+      bool is_next_wall = false;
+      if (current_wall == NULL) {
+        is_next_wall = true;
+      }
+      else if(current_wall->DoCotainCorner(tmp_wall->start_corner()) ||
+        current_wall->DoCotainCorner(tmp_wall->end_corner())){
+        is_next_wall = true;
+      }
+
+      if (is_next_wall) {
+        bfind_next_wall = true;
+        tmp_walls.RemoveAt(i);
+        outside_walls.Add(tmp_wall);
+        current_wall = tmp_wall;
+      }
+    }
+
+    if (!bfind_next_wall)
+      break;
+  }
+  return outside_walls;
+}

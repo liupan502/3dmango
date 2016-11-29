@@ -1,7 +1,9 @@
 #pragma once
 #include "mango3d.h"
+
 #include "ProceduralMeshComponent.h"
 class RoomData;
+class OpeningData;
 struct ProceduralMeshData {
   TArray<FVector> vertices;
   TArray<int32> triangles;
@@ -13,6 +15,19 @@ struct ProceduralMeshData {
 
   ProceduralMeshData() {
     bool_value = false;
+  }
+
+  void Append(const ProceduralMeshData& data) {
+    int base_vertex_index = vertices.Num();
+    for (int i = 0; i < data.triangles.Num(); i++) {
+      triangles.Add(data.triangles[i] + base_vertex_index);
+    }
+    vertices.Append(data.vertices);    
+    normals.Append(data.normals);
+    uv0s.Append(data.uv0s);
+    vertex_colors.Append(data.vertex_colors);
+    tangents.Append(data.tangents);
+    bool_value = bool_value&&data.bool_value;
   }
 };
 
@@ -29,3 +44,13 @@ int SampleComputeUVTileNum(const TArray<FVector2D>& polygon, float texWidth, flo
 TArray<FVector2D> GetUVRect(const TArray<FVector2D>& polygon,float texWidth,float texHeight);
 
 FVector2D ComputeUV(const TArray<FVector2D>& uvRect, FVector2D vertex);
+
+void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& openings, 
+  ProceduralMeshData& data, float texWidth = -1, float texHeight = -1);
+
+FMatrix compute_wall_matrix(FVector start_position, FVector end_position);
+
+TArray<FVector2D> split_face(TArray<FVector2D>& face, TArray<FVector2D>& openings);
+
+TArray<FVector> compute_opening_vertex(FVector start_point, FVector end_point, 
+  OpeningData* openingData, const FMatrix& mat);

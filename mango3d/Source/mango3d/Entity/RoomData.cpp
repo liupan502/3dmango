@@ -72,3 +72,14 @@ TArray<FVector2D> RoomData::GetCornerPositions() const {
   }
   return corner_vertices;
 }
+
+bool RoomData::DoCotainWall(const WallData* wallData) const {
+  bool bcontain_wall = false;
+  for (int i = 0; i < walls_.size(); i++) {
+    if (walls_[i] == wallData) {
+      bcontain_wall = true;
+      break;
+    }
+  }
+  return bcontain_wall;
+}

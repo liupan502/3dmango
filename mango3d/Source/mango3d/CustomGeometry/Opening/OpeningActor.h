@@ -3,19 +3,16 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "RoofActor.generated.h"
+#include "OpeningActor.generated.h"
 
-
-class RoomData;
-class URoofMeshComponent;
 UCLASS()
-class MANGO3D_API ARoofActor : public AActor
+class MANGO3D_API AOpeningActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ARoofActor();
+	AOpeningActor();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,11 +20,6 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-  void InitWithRoomData(const RoomData* roomData);
-
-private:
-
-  UPROPERTY(EditAnywhere)
-  URoofMeshComponent* roof_mesh_component_;
+	
 	
 };

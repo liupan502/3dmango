@@ -232,10 +232,51 @@
     <ClInclude Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.h">
       <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Room\RoomActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningActor.h">
+      <Filter>Source\mango3d\CustomGeometry\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningMeshComponent.h">
+      <Filter>Source\mango3d\CustomGeometry\Opening</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallMeshComponent.h">
+      <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.h">
+      <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp">
       <Filter>Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Room\RoomActor.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningActor.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningMeshComponent.cpp">
+      <Filter>Source\mango3d\CustomGeometry\Opening</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallMeshComponent.cpp">
+      <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.cpp">
+      <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\mango3d\CustomGeometry\Room">
+      <UniqueIdentifier>{ec571680-b38c-4b1d-829c-c86227b0795b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\mango3d\CustomGeometry\Opening">
+      <UniqueIdentifier>{d3169bf5-e39f-4491-a65d-735228d7ae42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\mango3d\CustomGeometry\OutsideWall">
+      <UniqueIdentifier>{d5212d34-e6de-4dd4-9d0d-3b30d76691a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

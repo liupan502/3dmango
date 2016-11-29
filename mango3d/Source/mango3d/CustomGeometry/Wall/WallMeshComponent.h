@@ -4,6 +4,8 @@
 
 #include "Entity/WallData.h"
 #include "Entity/OpeningData.h"
+#include "Entity/RoomData.h"
+
 #include "ProceduralMeshComponent.h"
 #include "Util/CustomGeometryUtil.h"
 #include "WallMeshComponent.generated.h"
@@ -36,6 +38,7 @@ public:
   void TestInit();
   virtual void InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings);
 
+  virtual void InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings,const RoomData* roomData);
 private:
 
   const float wall_height_ = 280.0f;
@@ -71,15 +74,11 @@ private:
 
   void build_opening_section(const WallData* wallData, OpeningData* openingData, ProceduralMeshData& data);
 
-  void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& openings, ProceduralMeshData& data);
-
-  TArray<FVector> compute_opening_vertex(FVector start_point, FVector end_point,OpeningData* openingData , const FMatrix& mat);
-
-
-  FMatrix compute_wall_matrix(FVector start_position, FVector end_position);
-  /*
-  face order: 
   
-  */
-  TArray<FVector2D> split_face(TArray<FVector2D>& face, TArray<FVector2D>& openings);
+
+  
+
+
+  
+  
 };

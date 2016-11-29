@@ -44,3 +44,9 @@ void AWallActor::InitWithWallData(const WallData* wallData, TArray<OpeningData*>
   wall_mesh_component_->InitWithWallData(wallData, openings);
 }
 
+void AWallActor::InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings,const RoomData* roomData) {
+
+
+  wall_mesh_component_->InitWithWallData(wallData, openings, roomData);
+}
+

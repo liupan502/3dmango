@@ -15,3 +15,4 @@ int IsPolygonInPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D
 TArray<FVector2D> GetIntersectionOfConvexPolygon(const TArray<FVector2D>& polygon1, const TArray<FVector2D>& polygon2);
 
 TArray<FVector2D> GetBoundingRect(const TArray<FVector2D>& polygon);
+

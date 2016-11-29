@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "Entity/WallData.h"
 #include "Entity/OpeningData.h"
+#include "Entity/RoomData.h"
 #include "WallActor.generated.h"
 
 class UWallMeshComponent;
@@ -19,6 +20,8 @@ public:
 	AWallActor();
 
   void InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings);
+
+  void InitWithWallData(const WallData* wallData, TArray<OpeningData*>& openings,const RoomData* roomData);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
