@@ -6,6 +6,7 @@ class WallData;
 class CornerData;
 class OpeningData;
 class RoomData;
+class ModelData;
 
 class MANGO3D_API DesignData :public BaseData
 {
@@ -17,6 +18,7 @@ public:
   TArray<WallData*> GetWalls();
   TArray<WallData*> GetOutsideWalls();
   TArray<RoomData*> GetRooms();
+  TArray<ModelData*> GetModels();
   TArray<OpeningData*> GetRelatedOpenings(WallData* wall);
 
   std::map<FString, OpeningData*> opening_data_map();
@@ -29,6 +31,8 @@ protected:
   std::map<FString, RoomData*> room_data_map_;
 
   std::map<FString, OpeningData*> opening_data_map_;
+
+  std::map<FString, ModelData*> model_data_map_;
 
   void update_init_data();
 };

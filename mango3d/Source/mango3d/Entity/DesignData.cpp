@@ -4,6 +4,7 @@
 #include "CornerData.h"
 #include "WallData.h"
 #include "OpeningData.h"
+#include "ModelData.h"
 
 DesignData::DesignData() :BaseData()
 {
@@ -87,6 +88,20 @@ void DesignData::InitWithJsonObject(FJsonObject& jsonObject) {
       room_data->InitWithJsonObject(*room_data_object);
       room_data_map_.insert(std::make_pair(room_data->name(), room_data));
 
+    }
+  }
+
+  model_data_map_.clear();
+  const TArray<TSharedPtr<FJsonValue>>* model_data_array;
+  if (jsonObject.TryGetArrayField("models", model_data_array)) {
+    for (int i = 0; i < model_data_array->Num(); i++) {
+      FJsonValue* model_data_value = (*model_data_array)[i].Get();
+      const TSharedPtr<FJsonObject>* model_data_share_object;
+      model_data_value->TryGetObject(model_data_share_object);
+      FJsonObject* model_data_object = model_data_share_object->Get();
+      ModelData* model_data = new ModelData();
+      model_data->InitWithJsonObject(*model_data_object);
+      model_data_map_.insert(std::make_pair(model_data->name(),model_data));
     }
   }
 
@@ -187,4 +202,13 @@ TArray<WallData*> DesignData::GetOutsideWalls(){
       break;
   }
   return outside_walls;
+}
+
+TArray<ModelData*> DesignData::GetModels() {
+  TArray<ModelData*> models;
+  for (std::map<FString, ModelData*>::iterator it = model_data_map_.begin();
+    it != model_data_map_.end(); it++) {
+    models.Add(it->second);
+  }
+  return models;
 }

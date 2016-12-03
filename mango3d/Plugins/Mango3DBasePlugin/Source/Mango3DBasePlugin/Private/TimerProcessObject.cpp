@@ -67,6 +67,12 @@ void UTimerProcessObject::update_world_geometry() {
 
   AOutsideWallActor* outside_wall_actor = world->SpawnActor<AOutsideWallActor>(location, FRotator::ZeroRotator);
   outside_wall_actor->InitWithDesignData(&design_data_);
+
+  TArray<ModelData*> model_datas = design_data_.GetModels();
+  for (int i = 0; i < model_datas.Num(); i++) {
+    AModelActor* model_actor = world->SpawnActor<AModelActor>(location, FRotator::ZeroRotator);
+    model_actor->InitWithModelData(model_datas[i]);
+  }
 }
 
 
