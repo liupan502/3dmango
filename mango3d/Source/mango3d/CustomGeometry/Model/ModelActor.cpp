@@ -26,8 +26,8 @@ void AModelActor::init_static_mesh(ModelData* modelData) {
   
   this->StaticMeshComponent->StaticMesh = loadObj;
   this->StaticMeshComponent->RelativeLocation = modelData->position();
-  //float angle = (modelData->rotation_z() / M_PI) * 360;
-  //this->StaticMeshComponent->RelativeRotation.Yaw = angle;
+  float angle = (modelData->rotation_z() / M_PI) * 180;
+  this->StaticMeshComponent->RelativeRotation.Yaw = angle;
   
   
 }
