@@ -9,7 +9,7 @@ class ResourceUtil {
   static ResourceUtil* Instance();
   virtual ~ResourceUtil();
   UStaticMesh* GetStaticMesh( const FString& meshId);
-  UMaterial* GetMaterial(const FString& matId)
+  UMaterial* GetMaterial(const FString& matId);
 protected:
   ResourceUtil();
   static ResourceUtil* instance_;

@@ -1,3 +1,4 @@
+#include "mango3d.h"
 #include "ResourceUtil.h"
 
 ResourceUtil* ResourceUtil::instance_ = NULL;

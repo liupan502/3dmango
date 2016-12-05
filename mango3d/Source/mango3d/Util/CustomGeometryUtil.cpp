@@ -320,7 +320,7 @@ void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& ope
 
   //FVector normal(-tmp.Y, tmp.X, 0);
   FVector tmp1 = end_position - start_position;
-  FVector normal(tmp1.Y, -tmp1.X, 0);
+  FVector normal(-tmp1.Y, tmp1.X, 0);
   TArray<FVector> normals;
   for (int i = 0; i < face_points.Num(); i++) {
     normals.Add(normal);
@@ -330,12 +330,21 @@ void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& ope
   TArray<int32> triangles;
   int face_num = face_points.Num() / 4;
   for (int i = 0; i < face_num; i++) {
-    triangles.Add(0 + 4 * i);
+    /*triangles.Add(0 + 4 * i);
     triangles.Add(2 + 4 * i);
     triangles.Add(1 + 4 * i);
+
     triangles.Add(0 + 4 * i);
     triangles.Add(3 + 4 * i);
+    triangles.Add(2 + 4 * i);*/
+
+    triangles.Add(1 + 4 * i);
     triangles.Add(2 + 4 * i);
+    triangles.Add(0 + 4 * i);
+
+    triangles.Add(2 + 4 * i);
+    triangles.Add(3 + 4 * i);
+    triangles.Add(0 + 4 * i);
   }
   data.triangles = triangles;
 }

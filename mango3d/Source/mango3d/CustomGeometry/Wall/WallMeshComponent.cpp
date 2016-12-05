@@ -587,7 +587,7 @@ void UWallMeshComponent::InitWithWallData(const WallData* wallData, TArray<Openi
   
   ClearAllMeshSections();
 
-  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/wall02/Mat/07_134020_0037_mat.07_134020_0037_mat'"));
+  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/wall/Mat/Mat_2.Mat_2'"));
 
   UMaterialInstanceDynamic* mat_instance = CreateAndSetMaterialInstanceDynamicFromMaterial(0, mat);
   FVector start_inside_position = wallData->StartInsidePosition();

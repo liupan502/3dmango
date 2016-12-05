@@ -13,7 +13,7 @@ AFloorActor::AFloorActor()
 
   
   floor_mesh_component_ = CreateDefaultSubobject<UFloorMeshComponent>(TEXT("GeneratedRoofMesh"));
-  
+  floor_mesh_component_->SetMobility(EComponentMobility::Static);
   RootComponent = floor_mesh_component_;
 
 }

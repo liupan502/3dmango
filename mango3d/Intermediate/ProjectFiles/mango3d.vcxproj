@@ -475,7 +475,9 @@
     <ClInclude Include="..\..\Source\mango3d\Util\JsonUtil.h" />
     <ClCompile Include="..\..\Source\mango3d\Util\PolygonUtil.cpp" />
     <ClInclude Include="..\..\Source\mango3d\Util\PolygonUtil.h" />
+    <ClCompile Include="..\..\Source\mango3d\Util\ResourceUtil.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Util\ShareMemoryUtil.cpp" />
+    <ClInclude Include="..\..\Source\mango3d\Util\ResourceUtil.h" />
     <ClInclude Include="..\..\Source\mango3d\Util\ShareMemoryUtil.h" />
   </ItemGroup>
   <PropertyGroup>

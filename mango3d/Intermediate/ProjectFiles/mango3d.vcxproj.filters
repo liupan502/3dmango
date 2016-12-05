@@ -247,6 +247,9 @@
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.h">
       <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Util\ResourceUtil.h">
+      <Filter>Source\mango3d\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.cpp">
       <Filter>Source\mango3d\CustomGeometry\OutsideWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Util\ResourceUtil.cpp">
+      <Filter>Source\mango3d\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

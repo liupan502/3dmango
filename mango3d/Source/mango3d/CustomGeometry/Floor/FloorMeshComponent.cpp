@@ -17,7 +17,7 @@ void UFloorMeshComponent::InitWithRoomData(const RoomData* roomData) {
   }
 
   ClearAllMeshSections();
-  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/diban/Mat/floor03.floor03'"));
+  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/floor/Mat/floor03.floor03'"));
   UMaterialInstanceDynamic* mat_instance = CreateAndSetMaterialInstanceDynamicFromMaterial(0,mat);
   TArray<FVector2D> corner_positions = GetRoomDataCornerPositions(roomData);
   float texWidth = 150, texHeight = 150;
@@ -36,7 +36,7 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
 
   TArray<int> triangles;
 
-  FVector normal(0, 0, -1);
+  FVector normal(0, 0, 1);
   TArray<FVector> normals;
   TArray<FVector2D> corner_positions = GetRoomDataCornerPositions(roomData);
   TArray<FVector2D> uv_rect = GetUVRect(corner_positions, texWidth, texHeight);
@@ -46,8 +46,14 @@ ProceduralMeshData UFloorMeshComponent::build_mesh_section(const RoomData* roomD
     FVector2D uv = ComputeUV(uv_rect, vertices_2d[i]);
     uv0s.Add(uv);
     vertices.Add(FVector(vertices_2d[i].X, vertices_2d[i].Y, 0));
-    triangles.Add(i);
+    //triangles.Add(i);
     normals.Add(normal);
+  }
+
+  for (int i = 0; i < vertices_2d.Num() / 3; i++) {
+    triangles.Add(i*3+2);
+    triangles.Add(i * 3 + 1);
+    triangles.Add(i * 3 + 0);
   }
 
   data.vertices = vertices;

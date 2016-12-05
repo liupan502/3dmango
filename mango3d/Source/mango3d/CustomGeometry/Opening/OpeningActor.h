@@ -28,6 +28,6 @@ public:
 protected:
   UPROPERTY(EditAnywhere)
   UOpeningMeshComponent* opening_mesh_component_;
-	
+  UStaticMeshComponent* static_mesh_component_;
 	
 };

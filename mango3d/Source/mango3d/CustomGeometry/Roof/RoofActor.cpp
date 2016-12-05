@@ -14,6 +14,7 @@ ARoofActor::ARoofActor()
   //USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
   //RootComponent = SphereComponent;
   roof_mesh_component_ = CreateDefaultSubobject<URoofMeshComponent>(TEXT("GeneratedRoofMesh"));
+  //roof_mesh_component_->SetMobility(EComponentMobility::Static);
   //wall_mesh->TestInit();
   RootComponent = roof_mesh_component_;
 
