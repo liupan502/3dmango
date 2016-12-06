@@ -30,5 +30,6 @@ private:
   //UPROPERTY()
   UPROPERTY(EditAnywhere)
   UFloorMeshComponent* floor_mesh_component_;
-	
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* static_mesh_component_;
 };

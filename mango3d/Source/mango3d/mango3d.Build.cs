@@ -16,6 +16,7 @@ public class mango3d : ModuleRules
             "RenderCore",
             "ShaderCore",
             "RHI",
+            "RawMesh",
             "ProceduralMeshComponent",            
  
         });

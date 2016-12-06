@@ -27,7 +27,10 @@ public:
 
 private:
 
-  UPROPERTY(EditAnywhere)
+  
   URoofMeshComponent* roof_mesh_component_;
+
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* static_mesh_component_;
 	
 };

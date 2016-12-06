@@ -5,6 +5,7 @@
 #include "Entity/WallData.h"
 #include "Entity/OpeningData.h"
 #include "PolygonUtil.h"
+#include "RawMesh.h"
 #include <vector>
 
 void CreateMeshSectionWithData(UProceduralMeshComponent* umc, int sectionIndex, ProceduralMeshData& data) {
@@ -491,4 +492,86 @@ TArray<FVector> compute_opening_vertex(FVector start_position,
     vectors3.Add(vertex);
   }
   return vectors3;
+}
+
+UStaticMesh* GetStaticMesh(UProceduralMeshComponent* ProcMeshComp,FString meshName) {
+  FRawMesh RawMesh;
+  TArray<UMaterialInterface*> MeshMaterials;
+  const int32 NumSections = ProcMeshComp->GetNumSections();
+  int32 VertexBase = 0;
+
+  for (int32 SectionIdx = 0; SectionIdx < NumSections; SectionIdx++)
+  {
+    FProcMeshSection* ProcSection = ProcMeshComp->GetProcMeshSection(SectionIdx);
+
+    // Copy verts
+    for (FProcMeshVertex& Vert : ProcSection->ProcVertexBuffer)
+    {
+      RawMesh.VertexPositions.Add(Vert.Position);
+    }
+
+    // Copy 'wedge' info
+    int32 NumIndices = ProcSection->ProcIndexBuffer.Num();
+    for (int32 IndexIdx = 0; IndexIdx < NumIndices; IndexIdx++)
+    {
+      int32 Index = ProcSection->ProcIndexBuffer[IndexIdx];
+
+      RawMesh.WedgeIndices.Add(Index + VertexBase);
+
+      FProcMeshVertex& ProcVertex = ProcSection->ProcVertexBuffer[Index];
+
+      FVector TangentX = ProcVertex.Tangent.TangentX;
+      FVector TangentZ = ProcVertex.Normal;
+      FVector TangentY = (TangentX ^ TangentZ).GetSafeNormal() * (ProcVertex.Tangent.bFlipTangentY ? -1.f : 1.f);
+
+      RawMesh.WedgeTangentX.Add(TangentX);
+      RawMesh.WedgeTangentY.Add(TangentY);
+      RawMesh.WedgeTangentZ.Add(TangentZ);
+
+      RawMesh.WedgeTexCoords[0].Add(ProcVertex.UV0);
+      RawMesh.WedgeColors.Add(ProcVertex.Color);
+    }
+
+    // copy face info
+    int32 NumTris = NumIndices / 3;
+    for (int32 TriIdx = 0; TriIdx < NumTris; TriIdx++)
+    {
+      RawMesh.FaceMaterialIndices.Add(SectionIdx);
+      RawMesh.FaceSmoothingMasks.Add(0); // Assume this is ignored as bRecomputeNormals is false
+    }
+
+    // Remember material
+    MeshMaterials.Add(ProcMeshComp->GetMaterial(SectionIdx));
+
+    // Update offset for creating one big index/vertex buffer
+    VertexBase += ProcSection->ProcVertexBuffer.Num();
+  }
+
+  if (RawMesh.VertexPositions.Num() > 3 && RawMesh.WedgeIndices.Num() > 3) {
+    //UWallMeshComponent* wall_component = ConstructObject<UWallMeshComponent>(UWallMeshComponent::StaticClass(), (UObject*)GetTransientPackage(), TEXT("my_wall"));
+    UStaticMesh* StaticMesh = NewObject<UStaticMesh>((UObject*)GetTransientPackage(), FName(*meshName), RF_Public | RF_Standalone);
+    StaticMesh->InitResources();
+    StaticMesh->LightingGuid = FGuid::NewGuid();
+
+    FStaticMeshSourceModel* SrcModel = new (StaticMesh->SourceModels) FStaticMeshSourceModel();
+    SrcModel->BuildSettings.bRecomputeNormals = false;
+    SrcModel->BuildSettings.bRecomputeTangents = false;
+    SrcModel->BuildSettings.bRemoveDegenerates = false;
+    SrcModel->BuildSettings.bUseHighPrecisionTangentBasis = false;
+    SrcModel->BuildSettings.bUseFullPrecisionUVs = false;
+    SrcModel->BuildSettings.bGenerateLightmapUVs = true;
+    SrcModel->BuildSettings.SrcLightmapIndex = 0;
+    SrcModel->BuildSettings.DstLightmapIndex = 1;
+    SrcModel->RawMeshBulkData->SaveRawMesh(RawMesh);
+
+    for (UMaterialInterface* Material : MeshMaterials)
+    {
+      StaticMesh->Materials.Add(Material);
+    }
+
+    // Build mesh from source
+    StaticMesh->Build(false);
+    return StaticMesh;
+  }
+  return NULL;
 }

@@ -3,6 +3,7 @@
 #include "mango3d.h"
 #include "WallActor.h"
 #include "WallMeshComponent.h"
+#include "Util/CustomGeometryUtil.h"
 
 
 // Sets default values
@@ -10,16 +11,14 @@ AWallActor::AWallActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-  //wall_mesh_component_ = CreateDefaultSubobject<UWallMeshComponent>(TEXT("GeneratedMesh"));
-  //RootComponent = wall_mesh_component_;
-  //wall_mesh_component_ = NULL;
   
-  //USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
-  
-  //RootComponent = SphereComponent;
   wall_mesh_component_ = CreateDefaultSubobject<UWallMeshComponent>(TEXT("GeneratedMesh"));
   wall_mesh_component_->SetMobility(EComponentMobility::Static);
-  RootComponent = wall_mesh_component_;
+  wall_mesh_component_->SetVisibility(false);
+  static_mesh_component_ = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GeneratedStaticMesh"));
+  static_mesh_component_->SetMobility(EComponentMobility::Static);
+  static_mesh_component_->SetVisibility(true);
+  RootComponent = static_mesh_component_;
   //wall_mesh->TestInit();
   //wall_mesh_component_->AttachTo(RootComponent);
 }
@@ -48,5 +47,8 @@ void AWallActor::InitWithWallData(const WallData* wallData, TArray<OpeningData*>
 
 
   wall_mesh_component_->InitWithWallData(wallData, openings, roomData);
+  FString mesh_name = wallData->name();
+  UStaticMesh* static_mesh = GetStaticMesh(wall_mesh_component_, mesh_name);
+  static_mesh_component_->StaticMesh = static_mesh;
 }
 

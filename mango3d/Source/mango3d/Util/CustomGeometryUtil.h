@@ -54,3 +54,5 @@ TArray<FVector2D> split_face(TArray<FVector2D>& face, TArray<FVector2D>& opening
 
 TArray<FVector> compute_opening_vertex(FVector start_point, FVector end_point, 
   OpeningData* openingData, const FMatrix& mat);
+
+UStaticMesh* GetStaticMesh(UProceduralMeshComponent* com,FString meshName);

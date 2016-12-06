@@ -3,6 +3,7 @@
 #include "mango3d.h"
 #include "FloorActor.h"
 #include "Entity/RoomData.h"
+#include "Util/CustomGeometryUtil.h"
 
 
 // Sets default values
@@ -13,8 +14,11 @@ AFloorActor::AFloorActor()
 
   
   floor_mesh_component_ = CreateDefaultSubobject<UFloorMeshComponent>(TEXT("GeneratedRoofMesh"));
-  floor_mesh_component_->SetMobility(EComponentMobility::Static);
-  RootComponent = floor_mesh_component_;
+  floor_mesh_component_->SetVisibility(false);
+  static_mesh_component_ = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GeneratedStaticRoofMesh"));
+  static_mesh_component_->SetMobility(EComponentMobility::Static);
+  static_mesh_component_->SetVisibility(true);
+  RootComponent = static_mesh_component_;
 
 }
 
@@ -34,5 +38,8 @@ void AFloorActor::Tick( float DeltaTime )
 
 void AFloorActor::InitWithRoomData(const RoomData* roomData) {
   floor_mesh_component_->InitWithRoomData(roomData);
+  FString mesh_name = roomData->name() + "_floor";
+  UStaticMesh* static_mesh = GetStaticMesh(floor_mesh_component_, mesh_name);
+  static_mesh_component_->StaticMesh = static_mesh;
 }
 

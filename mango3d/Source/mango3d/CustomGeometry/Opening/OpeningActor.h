@@ -26,6 +26,8 @@ public:
   virtual void InitWithOpeningData( OpeningData* openingData, WallData* wallData);
 
 protected:
+
+  void AddSpotLights(OpeningData* openingData);
   UPROPERTY(EditAnywhere)
   UOpeningMeshComponent* opening_mesh_component_;
   UStaticMeshComponent* static_mesh_component_;

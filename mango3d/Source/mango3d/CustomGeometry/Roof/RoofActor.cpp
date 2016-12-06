@@ -2,7 +2,9 @@
 
 #include "mango3d.h"
 #include "RoofActor.h"
+#include "Entity/RoomData.h"
 #include "RoofMeshComponent.h"
+#include "Util/CustomGeometryUtil.h"
 
 
 // Sets default values
@@ -14,9 +16,14 @@ ARoofActor::ARoofActor()
   //USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
   //RootComponent = SphereComponent;
   roof_mesh_component_ = CreateDefaultSubobject<URoofMeshComponent>(TEXT("GeneratedRoofMesh"));
+  roof_mesh_component_->SetVisibility(false);
   //roof_mesh_component_->SetMobility(EComponentMobility::Static);
   //wall_mesh->TestInit();
-  RootComponent = roof_mesh_component_;
+
+  static_mesh_component_ = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GeneratedStaticRoofMesh"));
+  static_mesh_component_->SetMobility(EComponentMobility::Static);
+  static_mesh_component_->SetVisibility(true);
+  RootComponent = static_mesh_component_;
 
 }
 
@@ -36,5 +43,8 @@ void ARoofActor::Tick( float DeltaTime )
 
 void ARoofActor::InitWithRoomData(const RoomData* roomData) {
   roof_mesh_component_->InitWithRoomData(roomData);
+  FString mesh_name = roomData->name() + "_roof";
+  UStaticMesh* static_mesh = GetStaticMesh(roof_mesh_component_,mesh_name);
+  static_mesh_component_->StaticMesh = static_mesh;
 }
 

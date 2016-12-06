@@ -32,11 +32,11 @@ public:
 
 protected:
 
-  UPROPERTY(EditAnywhere)
+  
   UWallMeshComponent* wall_mesh_component_;
 
-   
-
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* static_mesh_component_;
 	
 	
 };

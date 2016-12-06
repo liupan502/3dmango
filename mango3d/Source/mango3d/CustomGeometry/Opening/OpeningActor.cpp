@@ -50,6 +50,7 @@ void AOpeningActor::InitWithOpeningData( OpeningData* openingData,   WallData* w
     model_name = "door";
     break;
   default:
+    AddSpotLights(openingData);
     break;
   }
   FString file_name = str1 + model_name + str2 + model_name + str3 + model_name + str4;
@@ -60,3 +61,25 @@ void AOpeningActor::InitWithOpeningData( OpeningData* openingData,   WallData* w
   static_mesh_component_->RelativeRotation.Yaw = angle;
 }
 
+void AOpeningActor::AddSpotLights(OpeningData* openingData) {
+  UWorld* world = GWorld;
+  float length = openingData->length();
+  float height = openingData->height();
+  TArray<ASpotLight*> spot_lights;
+  ASpotLight* spot_light1 = world->SpawnActor<ASpotLight>(openingData->position()+FVector(0,0.3*length,0.6*height), FRotator::ZeroRotator);
+  spot_lights.Add(spot_light1);
+  ASpotLight* spot_light2 = world->SpawnActor<ASpotLight>(openingData->position()+FVector(0,0.3*length,  0.4*height) , FRotator::ZeroRotator);
+  spot_lights.Add(spot_light2);
+  ASpotLight* spot_light3 = world->SpawnActor<ASpotLight>(openingData->position() + FVector(0,-0.3*length,  0.6*height), FRotator::ZeroRotator);
+  spot_lights.Add(spot_light3);
+  ASpotLight* spot_light4 = world->SpawnActor<ASpotLight>(openingData->position() + FVector(0,-0.3*length,  0.4*height), FRotator::ZeroRotator);
+  spot_lights.Add(spot_light4);
+
+  for (int i = 0; i < spot_lights.Num(); i++) {    
+    spot_lights[i]->SpotLightComponent->LightColor = FLinearColor(0.792, 0.878, 1.0).ToFColor(false);    
+    spot_lights[i]->SpotLightComponent->OuterConeAngle = 80;
+    spot_lights[i]->SpotLightComponent->SetMobility(EComponentMobility::Static);
+    spot_lights[i]->SpotLightComponent->RelativeRotation = FRotator(0, 0, 0);
+    
+  }
+}
