@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "Object.h"
 #include "Entity/DesignData.h"
 #include "CustomGeometry/Wall/WallActor.h"
@@ -26,5 +27,7 @@ public:
   DesignData design_data_;
 
   TArray<AWallActor*> walls_;
+
+  
 	
 };

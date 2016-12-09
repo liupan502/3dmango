@@ -34,6 +34,7 @@ public class Mango3DBasePlugin : ModuleRules
                     "InputCore",
                     "Json",
                     "RawMesh",
+                    "UnrealEd",
                     "mango3d",
 
 				// ... add other public dependencies that you statically link with here ...

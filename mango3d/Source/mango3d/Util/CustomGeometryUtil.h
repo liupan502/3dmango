@@ -2,6 +2,8 @@
 #include "mango3d.h"
 
 #include "ProceduralMeshComponent.h"
+#include "Engine/BrushBuilder.h"
+#include "GameFramework/Volume.h"
 class RoomData;
 class OpeningData;
 struct ProceduralMeshData {
@@ -56,3 +58,5 @@ TArray<FVector> compute_opening_vertex(FVector start_point, FVector end_point,
   OpeningData* openingData, const FMatrix& mat);
 
 UStaticMesh* GetStaticMesh(UProceduralMeshComponent* com,FString meshName);
+
+void MANGO3D_API CreateBrushForVolumeActor(AVolume* NewActor, UBrushBuilder* BrushBuilder);

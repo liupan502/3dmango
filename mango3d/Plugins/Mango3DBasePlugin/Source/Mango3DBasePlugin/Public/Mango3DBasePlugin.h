@@ -4,8 +4,10 @@
 
 #include "ModuleManager.h"
 #include "TimerManager.h"
-#include "TimerProcessObject.h"
+//#include "TimerProcessObject.h"
 
+
+class UTimerProcessObject;
 class FMango3DBasePluginModule : public IModuleInterface
 {
 public:
