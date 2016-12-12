@@ -142,6 +142,34 @@ void CreateLightmassImportanceVolume(DesignData* designData) {
   importance_volume->BrushComponent->RelativeLocation = FVector(rect_center, 140);
 }
 
+void CreateBoxReflectionCapture(DesignData* designData) {
+  TArray<WallData*> wall_datas = designData->GetOutsideWalls();
+  TArray<FVector2D> outside_polygon;
+  for (int i = 0; i < wall_datas.Num(); i++) {
+    int index = i;
+    int next_index = (i + 1) % wall_datas.Num();
+    CornerData* corner = wall_datas[index]->GetConnectedCorner(wall_datas[next_index]);
+    FVector corner_position = corner->position();
+    outside_polygon.Add(FVector2D(corner_position.X, corner_position.Y));
+  }
+
+  TArray<FVector2D> rect = GetBoundingRect(outside_polygon);
+  float height = FVector2D::Distance(rect[0], rect[1]);
+  float width = FVector2D::Distance(rect[0], rect[3]);
+
+  UWorld* world = GWorld;  
+  ABoxReflectionCapture* box_reflection_capture =
+    world->SpawnActor<ABoxReflectionCapture>(FVector(), FRotator::ZeroRotator);
+  //box_reflection_capture->CaptureComponent
+  box_reflection_capture->CaptureComponent->RelativeScale3D = FVector(width*1.2,height*1.2,280>1.2);
+  FVector2D rect_center(0.0, 0.0);
+  for (int i = 0; i < rect.Num(); i++) {
+    rect_center = rect_center + rect[i];
+  }
+  rect_center = rect_center / (rect.Num());
+  box_reflection_capture->CaptureComponent->RelativeLocation = FVector(rect_center, 140);
+}
+
 void UTimerProcessObject::GrabSceneData() {
   update_design_data();
   //UCubeBuilder* cube_builder = NewObject<UCubeBuilder>();
@@ -205,6 +233,7 @@ void UTimerProcessObject::update_world_geometry() {
 
   CreateLightmassImportanceVolume(&design_data_);
   CreatePostProcessVolume(&design_data_);
+  CreateBoxReflectionCapture(&design_data_);
 }
 
 
