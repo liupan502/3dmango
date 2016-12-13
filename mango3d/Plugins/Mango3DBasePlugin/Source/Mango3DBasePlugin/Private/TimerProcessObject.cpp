@@ -161,7 +161,7 @@ void CreateBoxReflectionCapture(DesignData* designData) {
   ABoxReflectionCapture* box_reflection_capture =
     world->SpawnActor<ABoxReflectionCapture>(FVector(), FRotator::ZeroRotator);
   //box_reflection_capture->CaptureComponent
-  box_reflection_capture->CaptureComponent->RelativeScale3D = FVector(width*1.2,height*1.2,280>1.2);
+  box_reflection_capture->CaptureComponent->RelativeScale3D = FVector(width*1.2,height*1.2,280*1.2);
   FVector2D rect_center(0.0, 0.0);
   for (int i = 0; i < rect.Num(); i++) {
     rect_center = rect_center + rect[i];
