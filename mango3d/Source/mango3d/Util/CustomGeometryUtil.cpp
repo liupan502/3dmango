@@ -321,12 +321,16 @@ void build_wall_vertical_face(TArray<FVector> vectors, TArray<OpeningData*>& ope
 
   //FVector normal(-tmp.Y, tmp.X, 0);
   FVector tmp1 = end_position - start_position;
+  FProcMeshTangent proc_mesh_tangent(tmp1.X, tmp1.Y, 0.0);
+  TArray<FProcMeshTangent> tangents;
   FVector normal(-tmp1.Y, tmp1.X, 0);
   TArray<FVector> normals;
   for (int i = 0; i < face_points.Num(); i++) {
     normals.Add(normal);
+    tangents.Add(proc_mesh_tangent);
   }
   data.normals = normals;
+  data.tangents = tangents;
 
   TArray<int32> triangles;
   int face_num = face_points.Num() / 4;
