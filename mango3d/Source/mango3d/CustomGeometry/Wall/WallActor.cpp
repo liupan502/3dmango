@@ -3,6 +3,7 @@
 #include "mango3d.h"
 #include "WallActor.h"
 #include "WallMeshComponent.h"
+#include "CustomGeometry/SkirtingLine/SkirtingLineActor.h"
 #include "Util/CustomGeometryUtil.h"
 
 
@@ -50,5 +51,13 @@ void AWallActor::InitWithWallData(const WallData* wallData, TArray<OpeningData*>
   FString mesh_name = wallData->name();
   UStaticMesh* static_mesh = GetStaticMesh(wall_mesh_component_, mesh_name);
   static_mesh_component_->StaticMesh = static_mesh;
+
+  UWorld* world = GWorld;
+  FVector location(0.0, 0.0, 0.0);
+  ASkirtingLineActor* skirting_line = world->SpawnActor<ASkirtingLineActor>(location, FRotator::ZeroRotator);
+  //WallData tmp_wall_data = *wallData;
+  //RoomData tmp_room_data = *roomData;
+  skirting_line->InitWithWallData((WallData*)wallData, openings, (RoomData*)roomData);
+  
 }
 

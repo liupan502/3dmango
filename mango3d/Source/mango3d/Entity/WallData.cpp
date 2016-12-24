@@ -29,7 +29,7 @@ WallData::~WallData() {
 }
 
 void WallData::InitWithJsonObject(FJsonObject& jsonObject) {
-  BaseData::InitWithJsonObject(jsonObject);
+  BaseGeometryData::InitWithJsonObject(jsonObject);
 
   int wall_data_type;
   if (jsonObject.TryGetNumberField("wall_data_type", wall_data_type)) {

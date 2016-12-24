@@ -1,6 +1,6 @@
 #ifndef MANGO_3D_WALL_DATA_H_
 #define MANGO_3D_WALL_DATA_H_
-#include "BaseData.h"
+#include "BaseGeometryData.h"
 #include <set>
 
 typedef enum WALL_DATA_TYPE {
@@ -27,7 +27,7 @@ typedef enum WALL_DATA_STATUS {
 class CornerData;
 class OpeningData;
 class LineData;
-class MANGO3D_API WallData : public BaseData {
+class MANGO3D_API WallData : public BaseGeometryData {
 public:
   WallData();
   virtual ~WallData();
