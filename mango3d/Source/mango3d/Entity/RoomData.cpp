@@ -29,6 +29,12 @@ void RoomData::InitWithJsonObject(FJsonObject& jsonObject) {
       walls_.push_back(wall_data);
     }
   }
+
+  //ceiling_names_.RemoveAll(Predicate;
+  //TArray<FString> tmp_Array;
+  if (jsonObject.TryGetStringArrayField("ceiling_names", ceiling_names_)) {
+
+  }
 }
 
 void RoomData::UpdateInitData(std::map<FString, WallData*>& wallDataMap) {

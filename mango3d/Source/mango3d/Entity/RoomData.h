@@ -22,5 +22,6 @@ public:
 protected:
   FString func_name_;
   std::vector<WallData*> walls_;
+  TArray<FString> ceiling_names_;
 };
 #endif

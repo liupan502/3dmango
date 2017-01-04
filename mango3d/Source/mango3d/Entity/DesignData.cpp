@@ -5,6 +5,7 @@
 #include "WallData.h"
 #include "OpeningData.h"
 #include "ModelData.h"
+#include "CeilingData.h"
 
 DesignData::DesignData() :BaseData()
 {
@@ -102,6 +103,20 @@ void DesignData::InitWithJsonObject(FJsonObject& jsonObject) {
       ModelData* model_data = new ModelData();
       model_data->InitWithJsonObject(*model_data_object);
       model_data_map_.insert(std::make_pair(model_data->name(),model_data));
+    }
+  }
+
+  ceiling_data_map_.clear();
+  const TArray<TSharedPtr<FJsonValue>>* ceiling_data_array;
+  if(jsonObject.TryGetArrayField("ceilings", ceiling_data_array)) {
+    for (int i = 0; i < ceiling_data_array->Num(); i++) {
+      FJsonValue* ceiling_data_value = (*ceiling_data_array)[i].Get();
+      const TSharedPtr<FJsonObject>* ceiling_data_share_object;
+      ceiling_data_value->TryGetObject(ceiling_data_share_object);
+      FJsonObject* ceiling_data_object = ceiling_data_share_object->Get();
+      CrossSectionCeilingData* ceiling_data = new CrossSectionCeilingData();
+      ceiling_data->InitWithJsonObject(*ceiling_data_object);
+      ceiling_data_map_.insert(std::make_pair(ceiling_data->name(), ceiling_data));
     }
   }
 

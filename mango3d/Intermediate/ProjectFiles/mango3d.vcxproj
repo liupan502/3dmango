@@ -428,6 +428,7 @@
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Room\RoomActor.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineActor.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineMeshComponent.cpp" />
+    <ClCompile Include="..\..\Source\mango3d\Entity\CeilingData.cpp" />
     <ClCompile Include="..\..\Source\mango3d\mango3d.cpp" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningActor.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningMeshComponent.h" />
@@ -436,6 +437,7 @@
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Room\RoomActor.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineActor.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineMeshComponent.h" />
+    <ClInclude Include="..\..\Source\mango3d\Entity\CeilingData.h" />
     <ClInclude Include="..\..\Source\mango3d\mango3d.h" />
     <ClCompile Include="..\..\Source\mango3d\mango3dGameMode.cpp" />
     <ClInclude Include="..\..\Source\mango3d\mango3dGameMode.h" />

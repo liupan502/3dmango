@@ -7,6 +7,7 @@ class CornerData;
 class OpeningData;
 class RoomData;
 class ModelData;
+class BaseCeilingData;
 
 class MANGO3D_API DesignData :public BaseData
 {
@@ -33,6 +34,8 @@ protected:
   std::map<FString, OpeningData*> opening_data_map_;
 
   std::map<FString, ModelData*> model_data_map_;
+
+  std::map<FString, BaseCeilingData*> ceiling_data_map_;
 
   void update_init_data();
 };

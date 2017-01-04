@@ -256,6 +256,9 @@
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineMeshComponent.h">
       <Filter>Source\mango3d\CustomGeometry\SkirtingLine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\mango3d\Entity\CeilingData.h">
+      <Filter>Source\mango3d\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp">
@@ -284,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineMeshComponent.cpp">
       <Filter>Source\mango3d\CustomGeometry\SkirtingLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mango3d\Entity\CeilingData.cpp">
+      <Filter>Source\mango3d\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

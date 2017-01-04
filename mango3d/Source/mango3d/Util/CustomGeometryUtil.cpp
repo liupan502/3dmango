@@ -566,6 +566,7 @@ UStaticMesh* GetStaticMesh(UProceduralMeshComponent* ProcMeshComp,FString meshNa
     SrcModel->BuildSettings.bGenerateLightmapUVs = true;
     SrcModel->BuildSettings.SrcLightmapIndex = 0;
     SrcModel->BuildSettings.DstLightmapIndex = 1;
+    
     SrcModel->RawMeshBulkData->SaveRawMesh(RawMesh);
 
     for (UMaterialInterface* Material : MeshMaterials)

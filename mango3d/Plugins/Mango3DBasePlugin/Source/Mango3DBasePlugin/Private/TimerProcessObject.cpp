@@ -205,8 +205,7 @@ void UTimerProcessObject::update_world_geometry() {
 
   TArray<RoomData*> rooms = design_data_.GetRooms();
   for (int i = 0; i < rooms.Num(); i++) {
-    RoomData* room = rooms[i];
-    //FVector location(0.0, 0.0, 0.0);
+    RoomData* room = rooms[i];    
     ARoofActor* roof_actor = world->SpawnActor<ARoofActor>(location, FRotator::ZeroRotator);
     roof_actor->InitWithRoomData(room);
     AFloorActor* floor_actor = world->SpawnActor<AFloorActor>(location, FRotator::ZeroRotator);
