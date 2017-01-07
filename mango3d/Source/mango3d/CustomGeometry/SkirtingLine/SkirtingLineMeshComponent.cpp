@@ -11,7 +11,7 @@
 
 void USkirtingLineMeshComponent::InitWithWallData(WallData* wallData, TArray<OpeningData*>& openings, RoomData* roomData) {
   ClearAllMeshSections();
-  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/wall/Mat/Mat_2.Mat_2'"));
+  UMaterial* mat = LoadObject<UMaterial>(NULL, TEXT("Material'/Game/Model/tijiaoxian/Mat/wd.wd'"));
   UMaterialInstanceDynamic* mat_instance = CreateAndSetMaterialInstanceDynamicFromMaterial(0, mat);
   ProceduralMeshData mesh_data = build_mesh_section(wallData, openings,roomData);
   CreateMeshSectionWithData(this, 0, mesh_data);

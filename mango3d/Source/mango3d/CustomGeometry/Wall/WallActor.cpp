@@ -58,6 +58,9 @@ void AWallActor::InitWithWallData(const WallData* wallData, TArray<OpeningData*>
   //WallData tmp_wall_data = *wallData;
   //RoomData tmp_room_data = *roomData;
   skirting_line->InitWithWallData((WallData*)wallData, openings, (RoomData*)roomData);
+
+  static_mesh_component_->bOverrideLightMapRes = 1;
+  static_mesh_component_->OverriddenLightMapRes = 512;
   
 }
 

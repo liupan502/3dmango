@@ -421,6 +421,8 @@
     <None Include="..\..\Plugins\Mango3DBasePlugin\Resources\Icon128.png" />
     <ClCompile Include="..\..\Plugins\Mango3DBasePlugin\Source\Mango3DBasePlugin\Private\TimerProcessObject.cpp" />
     <None Include="..\..\Source\mango3d\mango3d.Build.cs" />
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Ceiling\CrossSection\CrossSectionCeilingActor.cpp" />
+    <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Ceiling\CrossSection\CrossSectionCeilingMeshComponent.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningActor.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningMeshComponent.cpp" />
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.cpp" />
@@ -430,6 +432,8 @@
     <ClCompile Include="..\..\Source\mango3d\CustomGeometry\SkirtingLine\SkirtingLineMeshComponent.cpp" />
     <ClCompile Include="..\..\Source\mango3d\Entity\CeilingData.cpp" />
     <ClCompile Include="..\..\Source\mango3d\mango3d.cpp" />
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Ceiling\CrossSection\CrossSectionCeilingActor.h" />
+    <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Ceiling\CrossSection\CrossSectionCeilingMeshComponent.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningActor.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\Opening\OpeningMeshComponent.h" />
     <ClInclude Include="..\..\Source\mango3d\CustomGeometry\OutsideWall\OutsideWallActor.h" />

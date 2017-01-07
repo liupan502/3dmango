@@ -50,6 +50,8 @@ public:
   FVector EndOutsidePosition()const;
   FVector EndInsidePosition()const;
 
+  FVector normal_vector();
+
 
 
   //WALL_DATA_TYPE data_type();

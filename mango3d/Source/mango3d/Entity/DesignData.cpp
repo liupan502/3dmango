@@ -227,3 +227,13 @@ TArray<ModelData*> DesignData::GetModels() {
   }
   return models;
 }
+
+TArray<CrossSectionCeilingData*> DesignData::GetCrossSectionCeilingData() {
+  TArray<CrossSectionCeilingData*> result;
+  for (std::map<FString, BaseCeilingData*>::iterator it = ceiling_data_map_.begin();
+    it != ceiling_data_map_.end(); it++) {
+    if (it->second->ceiling_type() == CEILING_CROSS_SECTION)
+      result.Add((CrossSectionCeilingData*)(it->second));
+  }
+  return result;
+}

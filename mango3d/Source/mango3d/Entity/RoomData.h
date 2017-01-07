@@ -17,7 +17,7 @@ public:
   const std::vector<WallData*> GetWalls() const ;
   TArray<FVector2D> GetCornerPositions()const;
   bool DoCotainWall(const WallData* wallData) const;
-
+  TArray<FVector> InnerWallPoints();
 
 protected:
   FString func_name_;

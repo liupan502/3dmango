@@ -23,3 +23,11 @@ void ModelData::InitWithJsonObject(FJsonObject& jsonObject) {
   }
 
 }
+
+FString ModelData::model_name() {
+  return model_name_;
+}
+
+int ModelData::model_type() {
+  return model_type_;
+}

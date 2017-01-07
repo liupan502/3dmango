@@ -6,12 +6,14 @@
 #include "LevelEditor.h"
 #include "Entity/WallData.h"
 #include "Entity/CornerData.h"
+#include "Entity/CeilingData.h"
 #include "CustomGeometry/Room/RoomActor.h"
 #include "CustomGeometry/Roof/RoofActor.h"
 #include "CustomGeometry/Floor/FloorActor.h"
 #include "CustomGeometry/Opening/OpeningActor.h"
 #include "CustomGeometry/OutsideWall/OutsideWallActor.h"
 #include "CustomGeometry/Model/ModelActor.h"
+#include "CustomGeometry/Ceiling/CrossSection/CrossSectionCeilingActor.h"
 #include "Util/CustomGeometryUtil.h"
 #include "Util/PolygonUtil.h"
 
@@ -229,7 +231,19 @@ void UTimerProcessObject::update_world_geometry() {
     AModelActor* model_actor = world->SpawnActor<AModelActor>(location, FRotator::ZeroRotator);
     model_actor->InitWithModelData(model_datas[i]);
   }
-
+  TArray<CrossSectionCeilingData*> ceiling_datas = design_data_.GetCrossSectionCeilingData();
+  for (int i = 0; i < ceiling_datas.Num(); i++) {
+    ACrossSectionCeilingActor* ceiling_actor = world->SpawnActor<ACrossSectionCeilingActor>(
+      location, FRotator::ZeroRotator);
+    RoomData* related_room_data = NULL;
+    for (int j = 0; j < rooms.Num(); j++) {
+      if (rooms[i]->name() == ceiling_datas[i]->room_name()) {
+        related_room_data = rooms[i];
+        break;
+      }
+    }
+    ceiling_actor->InitWithCrossSectionCeilingData(ceiling_datas[i], related_room_data);
+  }
   CreateLightmassImportanceVolume(&design_data_);
   CreatePostProcessVolume(&design_data_);
   CreateBoxReflectionCapture(&design_data_);

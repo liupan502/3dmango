@@ -13,21 +13,25 @@ enum CEILING_UNIT_TYPE {
   CEILING_UNIT_LINE,
 };
 
-class BaseCeilingUnit {
+class MANGO3D_API BaseCeilingUnit {
 public:
 
   CEILING_UNIT_TYPE ceiling_unit_type();
+  virtual float width();
+  
   //virtual FJsonObject ToJson();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
 protected:
   CEILING_UNIT_TYPE ceiling_unit_type_;
 };
 
-class LineCeilingUnit : public BaseCeilingUnit {
+class MANGO3D_API LineCeilingUnit : public BaseCeilingUnit {
 public:
   LineCeilingUnit(FVector startPoint = FVector(), FVector endPoint = FVector());
   //virtual FJsonObject ToJson();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
+  virtual float width();
+  
   FVector start_point();
   FVector end_point();
 protected:
@@ -35,7 +39,7 @@ protected:
   FVector end_point_;
 };
 
-class BaseCeilingData :public BaseData {
+class MANGO3D_API BaseCeilingData :public BaseData {
 public:
   CEILING_TYPE ceiling_type();
   //virtual FJsonObject ToJson();
@@ -46,20 +50,15 @@ protected:
   FString room_name_;
 };
 
-class CrossSectionCeilingData : public BaseCeilingData {
+class MANGO3D_API CrossSectionCeilingData : public BaseCeilingData {
 public:
 
   //virtual FJsonObject ToJson();
   virtual void InitWithJsonObject(FJsonObject& jsonObject);
+  std::vector<BaseCeilingUnit*> ceiling_units();
 protected:
   std::vector<BaseCeilingUnit*> ceiling_units_;
 };
 
-class CeilingDataInstance {
-public:
-  FString room_name();
-  void set_room_name(const FString& room_name);
-protected:
-  FString room_name_;
-};
+
 #endif

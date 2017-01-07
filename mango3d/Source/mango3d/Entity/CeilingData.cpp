@@ -14,7 +14,7 @@ BaseCeilingUnit* CreateCeilingUnit(FJsonObject& jsonObject) {
 
   switch (type) {
   case CEILING_UNIT_LINE:
-    ceiling_unit = (BaseCeilingUnit*)(new LineCeilingUnit());
+    ceiling_unit = new LineCeilingUnit();
     break;
   default:
     ceiling_unit = new BaseCeilingUnit();
@@ -28,6 +28,12 @@ CEILING_UNIT_TYPE BaseCeilingUnit::ceiling_unit_type() {
   return ceiling_unit_type_;
 }
 
+float BaseCeilingUnit::width() {
+  return 0.0;
+}
+
+
+
 /*FJsonObject BaseCeilingUnit::ToJson() {
   FJsonObject object;
   object.insert("ceiling_type", QJsonValue((int)ceiling_unit_type()));
@@ -36,7 +42,7 @@ CEILING_UNIT_TYPE BaseCeilingUnit::ceiling_unit_type() {
 
 void BaseCeilingUnit::InitWithJsonObject(FJsonObject& jsonObject) {
   uint32 tmp;
-  if (jsonObject.TryGetNumberField("ceiling_type", tmp)) {
+  if (jsonObject.TryGetNumberField("ceiling_unit_type", tmp)) {
     ceiling_unit_type_ = (CEILING_UNIT_TYPE)tmp;
   }  
   else {
@@ -57,6 +63,12 @@ FVector LineCeilingUnit::start_point() {
 FVector LineCeilingUnit::end_point() {
   return end_point_;
 }
+
+float LineCeilingUnit::width() {
+  return FVector::Dist(start_point_,end_point_);
+}
+
+
 
 /*QJsonObject LineCeilingUnit::ToJson() {
   QJsonObject object;
@@ -85,13 +97,8 @@ void LineCeilingUnit::InitWithJsonObject(FJsonObject& jsonObject) {
   }
 }
 
-FString CeilingDataInstance::room_name() {
-  return room_name_;
-}
 
-void CeilingDataInstance::set_room_name(const FString& room_name) {
-  room_name_ = room_name;
-}
+
 
 CEILING_TYPE BaseCeilingData::ceiling_type() {
   return ceiling_type_;
@@ -158,6 +165,10 @@ void CrossSectionCeilingData::InitWithJsonObject(FJsonObject& jsonObject) {
       ceiling_units_.push_back(base_ceiling_unit);
     }    
   }
+}
+
+std::vector<BaseCeilingUnit*> CrossSectionCeilingData::ceiling_units() {
+  return ceiling_units_;
 }
 
 

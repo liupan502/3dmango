@@ -8,6 +8,7 @@ class OpeningData;
 class RoomData;
 class ModelData;
 class BaseCeilingData;
+class CrossSectionCeilingData;
 
 class MANGO3D_API DesignData :public BaseData
 {
@@ -21,6 +22,7 @@ public:
   TArray<RoomData*> GetRooms();
   TArray<ModelData*> GetModels();
   TArray<OpeningData*> GetRelatedOpenings(WallData* wall);
+  TArray<CrossSectionCeilingData*> GetCrossSectionCeilingData();
 
   std::map<FString, OpeningData*> opening_data_map();
 

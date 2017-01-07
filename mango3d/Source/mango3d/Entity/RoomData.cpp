@@ -3,6 +3,8 @@
 #include "WallData.h"
 #include "CornerData.h"
 
+#include "Util/PolygonUtil.h"
+
 RoomData::RoomData() :BaseData() {
   func_name_ = "";
 
@@ -88,4 +90,53 @@ bool RoomData::DoCotainWall(const WallData* wallData) const {
     }
   }
   return bcontain_wall;
+}
+
+TArray<FVector> RoomData::InnerWallPoints() {
+  TArray<FVector> inner_wall_points;
+  TArray<FVector2D> corner_positions = GetCornerPositions();
+  bool is_clockwise = IsClockwisePolygon(corner_positions);
+
+  for (int i = 0; i < walls_.size(); i++) {
+    int j = (i + 1) % walls_.size();
+    int k = (i + 2) % walls_.size();
+
+    WallData* wall_data1 = walls_[i];
+    WallData* wall_data2 = walls_[j];
+    WallData* wall_data3 = walls_[k];
+
+    CornerData* corner1 = wall_data1->GetConnectedCorner(wall_data2);
+    FVector position1 = corner1->position();
+    CornerData* corner2 = wall_data2->GetConnectedCorner(wall_data3);
+    FVector position2 = corner2->position();
+    
+    FVector tmp = position2 - position1;
+    FVector normal_vector = wall_data2->normal_vector();
+    float value = tmp.X*normal_vector.Y - tmp.Y*normal_vector.X;
+    if (is_clockwise) {
+      value = value*-1;
+    }
+
+    // 选择line为内墙
+    if (value < 0) {
+      if (wall_data2->IsStartCorner(corner1)) {
+        inner_wall_points.Add(wall_data2->StartInsidePosition());
+      }
+      else {
+        inner_wall_points.Add(wall_data2->EndInsidePosition());
+      }
+    }
+    // 选择generated-line 为内墙
+    else {
+      if (wall_data2->IsStartCorner(corner1)) {
+        inner_wall_points.Add(wall_data2->StartOutsidePosition());
+      }
+      else {
+        inner_wall_points.Add(wall_data2->EndOutsidePosition());
+      }
+    }
+
+  }
+
+  return inner_wall_points;
 }

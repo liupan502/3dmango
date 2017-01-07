@@ -176,3 +176,7 @@ CornerData* WallData::GetConnectedCorner(const WallData* otherWall) {
   return result;
 }
 
+FVector WallData::normal_vector() {
+  return normal_vector_;
+}
+

@@ -46,5 +46,7 @@ void ARoofActor::InitWithRoomData(const RoomData* roomData) {
   FString mesh_name = roomData->name() + "_roof";
   UStaticMesh* static_mesh = GetStaticMesh(roof_mesh_component_,mesh_name);
   static_mesh_component_->StaticMesh = static_mesh;
+  static_mesh_component_->bOverrideLightMapRes = 1;
+  static_mesh_component_->OverriddenLightMapRes = 512;
 }
 
