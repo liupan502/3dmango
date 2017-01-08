@@ -86,11 +86,14 @@ void CreatePostProcessVolume(DesignData* designData) {
   setting.bOverride_AutoExposureMinBrightness = enabled;
   setting.AutoExposureMinBrightness = 1.0;
   setting.bOverride_AutoExposureMaxBrightness = enabled;
+  setting.AutoExposureMaxBrightness = 0.8;
   setting.bOverride_AutoExposureBias = enabled;
+  setting.AutoExposureBias = -1.0;
 
-  setting.bOverride_LensFlareIntensity = enabled;
+  //setting.bOverride_LensFlareIntensity = enabled;
 
   setting.bOverride_AmbientOcclusionIntensity = enabled;
+  setting.AmbientCubemapIntensity = 0.35;
   setting.bOverride_AmbientOcclusionStaticFraction = enabled;
   setting.bOverride_AmbientOcclusionRadius = enabled;
   setting.bOverride_AmbientOcclusionRadiusInWS = enabled;
@@ -172,6 +175,35 @@ void CreateBoxReflectionCapture(DesignData* designData) {
   box_reflection_capture->CaptureComponent->RelativeLocation = FVector(rect_center, 140);
 }
 
+void CreateSphereReflectionCapture(DesignData* designData) {
+  TArray<WallData*> wall_datas = designData->GetOutsideWalls();
+  TArray<FVector2D> outside_polygon;
+  for (int i = 0; i < wall_datas.Num(); i++) {
+    int index = i;
+    int next_index = (i + 1) % wall_datas.Num();
+    CornerData* corner = wall_datas[index]->GetConnectedCorner(wall_datas[next_index]);
+    FVector corner_position = corner->position();
+    outside_polygon.Add(FVector2D(corner_position.X, corner_position.Y));
+  }
+
+  TArray<FVector2D> rect = GetBoundingRect(outside_polygon);
+  float height = FVector2D::Distance(rect[0], rect[1]);
+  float width = FVector2D::Distance(rect[0], rect[3]);
+
+  float radius = 1.2* height > width ? height : width;
+  UWorld* world = GWorld;
+
+  ASphereReflectionCapture* sphere_reflection_capture = 
+    world->SpawnActor<ASphereReflectionCapture>(FVector(), FRotator::ZeroRotator);
+  ((USphereReflectionCaptureComponent*)(sphere_reflection_capture->CaptureComponent))->InfluenceRadius = radius;
+  FVector2D rect_center(0.0, 0.0);
+  for (int i = 0; i < rect.Num(); i++) {
+    rect_center = rect_center + rect[i];
+  }
+  rect_center = rect_center / (rect.Num());
+  sphere_reflection_capture->CaptureComponent->RelativeLocation = FVector(rect_center, 140);
+}
+
 void UTimerProcessObject::GrabSceneData() {
   update_design_data();
   //UCubeBuilder* cube_builder = NewObject<UCubeBuilder>();
@@ -247,6 +279,7 @@ void UTimerProcessObject::update_world_geometry() {
   CreateLightmassImportanceVolume(&design_data_);
   CreatePostProcessVolume(&design_data_);
   CreateBoxReflectionCapture(&design_data_);
+  CreateSphereReflectionCapture(&design_data_);
 }
 
 

@@ -78,6 +78,9 @@ void AOpeningActor::AddSpotLights(OpeningData* openingData) {
   for (int i = 0; i < spot_lights.Num(); i++) {    
     spot_lights[i]->SpotLightComponent->LightColor = FLinearColor(0.792, 0.878, 1.0).ToFColor(false);    
     spot_lights[i]->SpotLightComponent->OuterConeAngle = 80;
+    spot_lights[i]->SpotLightComponent->InnerConeAngle = 70.0;
+    spot_lights[i]->SpotLightComponent->AttenuationRadius = 5000.0;
+    spot_lights[i]->SpotLightComponent->SourceRadius = 50;
     spot_lights[i]->SpotLightComponent->SetMobility(EComponentMobility::Static);
     spot_lights[i]->SpotLightComponent->RelativeRotation = FRotator(0, 0, 0);
     

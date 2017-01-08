@@ -43,6 +43,8 @@ void AModelActor::init_static_mesh(ModelData* modelData) {
   this->StaticMeshComponent->RelativeLocation = modelData->position();
   float angle = (modelData->rotation_z() / M_PI) * 180;
   this->StaticMeshComponent->RelativeRotation.Yaw = angle;
+  this->StaticMeshComponent->bOverrideLightMapRes = 1;
+  this->StaticMeshComponent->OverriddenLightMapRes = 256;
   
   
 }
