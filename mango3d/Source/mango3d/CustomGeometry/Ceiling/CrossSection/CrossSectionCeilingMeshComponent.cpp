@@ -30,7 +30,7 @@ ProceduralMeshData UCrossSectionCeilingMeshComponent::build_mesh_section(CrossSe
   int unit_size = units.size();
   int point_size = inner_wall_points.Num();
   float big_step = 0.01;
-  float little_step = 0.002;
+  float little_step = 0.01;
 
   float value1 = 1.0 - 0.05 * 2 + (point_size - 1)*big_step + (unit_size - 1)*point_size*little_step;
   float unit_width = 0.0;

@@ -109,6 +109,20 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
   }
   points.Add(end_position);
   int segment_num = points.Num() / 2;
+  float max_segment_length = 0.0;
+  for (int i = 0; i < segment_num; i++) {
+    FVector point1 = points[i * 2];
+    FVector point2 = points[i * 2 + 1];
+    float dist = FVector::Dist(point1, point2);
+    if (dist > max_segment_length)
+      max_segment_length = dist;
+  }
+
+  float scale1 = 0.9 / max_segment_length;
+  float tmp_height = 4 * skirting_line_height_ + 2 * skirting_line_width_;
+  float scale2 = (0.9 - 0.1*segment_num) / tmp_height;
+  float scale = scale1 > scale2 ? scale2 : scale1;
+
   TArray<FVector> vertices;
   TArray<FVector> normals;
   TArray<FProcMeshTangent> tangents;
@@ -118,9 +132,9 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
   for (int i = 0; i < segment_num; i++) {
     FVector pos1 = points[2*i];
     FVector pos2 = points[2 * i + 1];
+    float segment_length = FVector::Dist(pos1, pos2);
 
-
-    FVector2D uv_offset = FVector2D(0.05, 0.05 + v_step*i);
+    FVector2D uv_offset = FVector2D(0.05, 0.05 + v_step*i+0.02);
     
     // bottom face
     int index_offset = vertices.Num();
@@ -150,9 +164,9 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
 
     
     uv0s.Add(FVector2D(0.0,0.0)+uv_offset);
-    uv0s.Add(FVector2D(0.0, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.13, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.13, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_width_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, skirting_line_width_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, 0.0)*scale + uv_offset);
 
     //top face
     index_offset = vertices.Num();
@@ -183,11 +197,11 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
     triangles.Add(2 + index_offset);
     triangles.Add(3 + index_offset);
 
-
-    uv0s.Add(FVector2D(0.15, 0.0) + uv_offset);
-    uv0s.Add(FVector2D(0.15, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.28, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.28, 0.0) + uv_offset);
+    uv_offset = uv_offset + FVector2D(0, 0.02)+FVector2D(0, skirting_line_width_)*scale;
+    uv0s.Add(FVector2D(0.0, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_width_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, skirting_line_width_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, 0.0)*scale + uv_offset);
 
     // front face
     //FVector z_offset = FVector(0.0, 0.0, skirting_line_height_);
@@ -217,10 +231,11 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
     triangles.Add(3 + index_offset);
 
 
-    uv0s.Add(FVector2D(0.30, 0.0) + uv_offset);
-    uv0s.Add(FVector2D(0.30, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.43, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.43, 0.0) + uv_offset);
+    uv_offset = uv_offset + FVector2D(0, 0.02) + FVector2D(0, skirting_line_width_)*scale;
+    uv0s.Add(FVector2D(0.0, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, 0.0)*scale + uv_offset);
 
     // back face
     //FVector z_offset = FVector(0.0, 0.0, skirting_line_height_);
@@ -250,10 +265,11 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
     triangles.Add(3 + index_offset);
 
 
-    uv0s.Add(FVector2D(0.45, 0.0) + uv_offset);
-    uv0s.Add(FVector2D(0.45, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.58, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.58, 0.0) + uv_offset);
+    uv_offset = uv_offset + FVector2D(0, 0.02) + FVector2D(0, skirting_line_height_)*scale;
+    uv0s.Add(FVector2D(0.0, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(segment_length, 0.0)*scale + uv_offset);
 
     // left face
     //FVector z_offset = FVector(0.0, 0.0, skirting_line_height_);
@@ -283,10 +299,11 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
     triangles.Add(3 + index_offset);
 
 
-    uv0s.Add(FVector2D(0.60, 0.0) + uv_offset);
-    uv0s.Add(FVector2D(0.60, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.73, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.73, 0.0) + uv_offset);
+    uv_offset = uv_offset + FVector2D(0, 0.02) + FVector2D(0, skirting_line_height_)*scale;
+    uv0s.Add(FVector2D(0.0, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(skirting_line_width_, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(skirting_line_width_, 0.0)*scale + uv_offset);
 
     // right face
     //FVector z_offset = FVector(0.0, 0.0, skirting_line_height_);    
@@ -316,10 +333,11 @@ ProceduralMeshData USkirtingLineMeshComponent::build_mesh_section
     triangles.Add(3 + index_offset);
 
 
-    uv0s.Add(FVector2D(0.75, 0.0) + uv_offset);
-    uv0s.Add(FVector2D(0.75, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.88, v_step) + uv_offset);
-    uv0s.Add(FVector2D(0.88, 0.0) + uv_offset);
+    uv_offset = uv_offset + FVector2D(0.1, 0.0);
+    uv0s.Add(FVector2D(0.0, 0.0) + uv_offset);
+    uv0s.Add(FVector2D(0.0, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(skirting_line_width_, skirting_line_height_)*scale + uv_offset);
+    uv0s.Add(FVector2D(skirting_line_width_, 0.0)*scale + uv_offset);
     
    
 

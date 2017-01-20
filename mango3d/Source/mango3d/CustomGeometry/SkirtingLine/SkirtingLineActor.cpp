@@ -38,5 +38,7 @@ void ASkirtingLineActor::InitWithWallData(WallData* wallData, TArray<OpeningData
   FString mesh_name = wallData->name()+"sk";
   UStaticMesh* static_mesh = GetStaticMesh(skirting_line_mesh_component_, mesh_name);
   static_mesh_component_->StaticMesh = static_mesh;
+  static_mesh_component_->bOverrideLightMapRes = 1;
+  static_mesh_component_->OverriddenLightMapRes = 512;
 }
 
