@@ -31,6 +31,7 @@ void AModelActor::init_static_mesh(ModelData* modelData) {
     //spot_light->SpotLightComponent->LightColor = FLinearColor(0.792, 0.878, 1.0).ToFColor(false);
     spot_light->SpotLightComponent->InnerConeAngle = 36;
     spot_light->SpotLightComponent->OuterConeAngle = 54;
+    spot_light->SpotLightComponent->SourceRadius = 50;
     spot_light->SpotLightComponent->SetMobility(EComponentMobility::Static);
     spot_light->SpotLightComponent->RelativeRotation = FRotator(270, 0, 0);
     spot_light->SpotLightComponent->bUseIESBrightness = 1;

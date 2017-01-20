@@ -88,7 +88,7 @@ void CreatePostProcessVolume(DesignData* designData) {
   setting.bOverride_AutoExposureMaxBrightness = enabled;
   setting.AutoExposureMaxBrightness = 0.8;
   setting.bOverride_AutoExposureBias = enabled;
-  setting.AutoExposureBias = -1.0;
+  setting.AutoExposureBias = 0.0;
 
   //setting.bOverride_LensFlareIntensity = enabled;
 
